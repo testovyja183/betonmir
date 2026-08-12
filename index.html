@@ -219,133 +219,134 @@
 <script src="script.js"></script>
 <script>
 /* ===== DYNAMIC CONTENT ENGINE ===== */
-(function(){
+document.addEventListener('DOMContentLoaded', function(){
   const LS = k => localStorage.getItem(k);
-  const LSJ = k => { try { return JSON.parse(LS(k) || 'null'); } catch(e){ return null; } };
+  const LSJ = k => { try { return JSON.parse(LS(k)||'null'); } catch(e){ return null; } };
 
-  function applySettings() {
-    const st = LSJ('emis_settings') || {};
-    const setPhone = (id, phone) => {
-      const el = document.getElementById(id);
-      if (!el || !phone) return;
-      const clean = phone.replace(/\D/g, '');
-      el.textContent = (id.includes('cta') || id.includes('mobCta')) ? '📞 ' + phone : phone;
-      if (el.tagName === 'A') el.href = 'tel:' + clean;
-    };
-    if (st.phone) {
-      setPhone('navPhone', st.phone); setPhone('mobPhone', st.phone);
-      setPhone('ctaPhone', st.phone); setPhone('mobCtaCall', st.phone);
-      const fp = document.getElementById('footPhone'); if (fp) { fp.href = 'tel:' + st.phone.replace(/\D/g, ''); }
-    }
-    if (st.instagram) {
-      ['mobInst', 'footInst', 'galInstLink'].forEach(id => { const el = document.getElementById(id); if (el) el.href = st.instagram; });
-    }
-    if (st.tiktok) {
-      ['mobTiktok', 'footTiktok'].forEach(id => { const el = document.getElementById(id); if (el) el.href = st.tiktok; });
-    }
-    if (st.siteTitle) document.title = st.siteTitle;
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta && st.metaDescription) meta.content = st.metaDescription;
+  const defaultContent = {
+    hero:{ badge:'Минск и Минская область', title:'Благоустройство из бетона', titleAccent:'под ключ', subtitle:'Отмостки, дорожки, парковки и площадки из бетона. Надёжно, эстетично и с гарантией.', btnPrimary:'Рассчитать стоимость', btnGhost:'Смотреть работы' },
+    services:{ tag:'Наши услуги', title:'Что мы', titleAccent:'делаем', subtitle:'Полный комплекс бетонных работ для вашего участка' },
+    about:{ title:'Почему выбирают', titleAccent:'Бетонный Мир', p1:'Мы специализируемся исключительно на бетонных работах.', p2:'Работаем по проверенным технологиям.', stats:{ big:'100+', label:'выполненных объектов в Минске и области' }, features:['Гарантия на работы','Своя техника и инструмент','Бесплатный выезд на замер','Честная смета без сюрпризов'] },
+    process:{ tag:'Этапы работы', title:'Как мы', titleAccent:'работаем', subtitle:'Прозрачный процесс от звонка до готового результата', steps:[ {num:'1',title:'Заявка',desc:'Звоните или пишете нам — консультируем бесплатно'}, {num:'2',title:'Выезд и замер',desc:'Приезжаем на объект, оцениваем объём работ'}, {num:'3',title:'Смета и сроки',desc:'Называем точную стоимость и дату готовности'}, {num:'4',title:'Сдача объекта',desc:'Выполняем работы и убираем за собой территорию'} ] },
+    gallery:{ tag:'Портфолио', title:'Наши', titleAccent:'работы', subtitle:'Больше фото — в нашем Instagram <a href="https://www.instagram.com/emislavstroy" target="_blank" rel="noopener" style="color:var(--blue-dark);font-weight:600;">@emislavstroy</a>' },
+    cta:{ title:'Нужна консультация?', subtitle:'Позвоните нам — ответим на все вопросы и посчитаем стоимость бесплатно.' },
+    contact:{ title:'Свяжитесь с нами', subtitle:'Оставьте заявку — перезвоним в течение 15 минут.', items:[ {icon:'📞',title:'Телефон',value:'+375 (29) 662-52-66',type:'phone'}, {icon:'📍',title:'География',value:'Минск и Минская область',type:'text'}, {icon:'📸',title:'Instagram',value:'@emislavstroy',type:'link',url:'https://www.instagram.com/emislavstroy'}, {icon:'🕐',title:'Режим работы',value:'Ежедневно с 8:00 до 20:00',type:'text'} ] },
+    footer:{ desc:'Благоустройство территории из бетона в Минске и Минской области.', copy:'© 2026 Бетонный Мир. Все права защищены.', geo:'Минск и Минская область 🇧' }
+  };
+
+  const st = LSJ('emis_settings') || {};
+  const c = LSJ('emis_content') || defaultContent;
+
+  function setText(id, val) { const el = document.getElementById(id); if (el && val !== undefined) el.textContent = val; }
+  function setHTML(id, val) { const el = document.getElementById(id); if (el && val !== undefined) el.innerHTML = val; }
+
+  // Settings
+  const setPhone = (id, phone) => {
+    const el = document.getElementById(id);
+    if (!el || !phone) return;
+    const clean = phone.replace(/\D/g, '');
+    el.textContent = (id.includes('cta') || id.includes('mobCta')) ? '📞 ' + phone : phone;
+    if (el.tagName === 'A') el.href = 'tel:' + clean;
+  };
+  if (st.phone) {
+    setPhone('navPhone', st.phone); setPhone('mobPhone', st.phone);
+    setPhone('ctaPhone', st.phone); setPhone('mobCtaCall', st.phone);
+    const fp = document.getElementById('footPhone'); if (fp) fp.href = 'tel:' + st.phone.replace(/\D/g, '');
   }
+  if (st.instagram) {
+    ['mobInst', 'footInst', 'galInstLink'].forEach(id => { const el = document.getElementById(id); if (el) el.href = st.instagram; });
+  }
+  if (st.tiktok) {
+    ['mobTiktok', 'footTiktok'].forEach(id => { const el = document.getElementById(id); if (el) el.href = st.tiktok; });
+  }
+  if (st.siteTitle) document.title = st.siteTitle;
+  const meta = document.querySelector('meta[name="description"]');
+  if (meta && st.metaDescription) meta.content = st.metaDescription;
 
-  function applyContent() {
-    const c = LSJ('emis_content') || defaultContent;
-    const setText = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) el.textContent = val; };
-    const setHTML = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) el.innerHTML = val; };
-
-    if (c.hero) {
-      setText('heroBadge', c.hero.badge);
-      setText('heroTitle1', c.hero.title ? c.hero.title + ' ' : '');
-      if (c.hero.titleAccent) {
-        const el = document.getElementById('heroTitle2');
-        if (el) { el.childNodes[0].textContent = c.hero.titleAccent + ' '; }
-      }
-      setText('heroSubtitle', c.hero.subtitle);
-      setText('heroBtn1', c.hero.btnPrimary);
-      setText('heroBtn2', c.hero.btnGhost);
+  // Content
+  if (c.hero) {
+    setText('heroBadge', c.hero.badge);
+    setText('heroTitle1', c.hero.title ? c.hero.title + ' ' : '');
+    if (c.hero.titleAccent) {
+      const el = document.getElementById('heroTitle2');
+      if (el) el.childNodes[0].textContent = c.hero.titleAccent + ' ';
     }
-    if (c.services) {
-      setText('svcTag', c.services.tag);
-      setText('svcTitle1', c.services.title ? c.services.title + ' ' : '');
-      setText('svcTitle2', c.services.titleAccent);
-      setText('svcSubtitle', c.services.subtitle);
-    }
-    if (c.about) {
-      setText('aboutTitle1', c.about.title ? c.about.title + ' ' : '');
-      setText('aboutTitle2', c.about.titleAccent);
-      setText('aboutP1', c.about.p1);
-      setText('aboutP2', c.about.p2);
-      setText('aboutBig', c.about.stats?.big);
-      setText('aboutLbl', c.about.stats?.label);
-      if (c.about.features) {
-        document.getElementById('aboutFeatures').innerHTML = c.about.features.map(f =>
-          `<div class="about-feature"><span class="check">✓</span><span>${f}</span></div>`).join('');
-      }
-    }
-    // Этапы: берём из контента или из дефолта
-    const processSteps = (c.process && c.process.steps && c.process.steps.length)
-      ? c.process.steps
-      : defaultContent.process.steps;
-    if (c.process) {
-      setText('procTag', c.process.tag || defaultContent.process.tag);
-      setText('procTitle1', (c.process.title || defaultContent.process.title) + ' ');
-      setText('procTitle2', c.process.titleAccent || defaultContent.process.titleAccent);
-      setText('procSubtitle', c.process.subtitle || defaultContent.process.subtitle);
-    }
-    document.getElementById('processSteps').innerHTML = processSteps.map(s =>
-      `<div class="step fade-in"><div class="step-num">${s.num}</div><h3>${s.title}</h3><p>${s.desc}</p></div>`).join('');
-    if (c.gallery) {
-      setText('galTag', c.gallery.tag);
-      setText('galTitle1', c.gallery.title ? c.gallery.title + ' ' : '');
-      setText('galTitle2', c.gallery.titleAccent);
-      setHTML('galSubtitle', c.gallery.subtitle);
-    }
-    if (c.cta) {
-      setText('ctaTitle', c.cta.title);
-      setText('ctaSubtitle', c.cta.subtitle);
-    }
-    if (c.contact) {
-      setText('contactTitle', c.contact.title);
-      setText('contactSubtitle', c.contact.subtitle);
-      if (c.contact.items) {
-        document.getElementById('contactItems').innerHTML = c.contact.items.map(it => {
-          let val = it.type === 'phone' ? `<a href="tel:${it.value.replace(/\D/g, '')}">${it.value}</a>` :
-                      it.type === 'link' ? `<a href="${it.url || '#' }" target="_blank" rel="noopener">${it.value}</a>` : it.value;
-          return `<div class="contact-item"><div class="contact-icon">${it.icon}</div><div><h4>${it.title}</h4><p>${val}</p></div></div>`;
-        }).join('');
-      }
-    }
-    if (c.footer) {
-      setText('footerDesc', c.footer.desc);
-      setText('footerCopy', c.footer.copy);
-      setText('footerGeo', c.footer.geo);
+    setText('heroSubtitle', c.hero.subtitle);
+    setText('heroBtn1', c.hero.btnPrimary);
+    setText('heroBtn2', c.hero.btnGhost);
+  }
+  if (c.services) {
+    setText('svcTag', c.services.tag);
+    setText('svcTitle1', c.services.title ? c.services.title + ' ' : '');
+    setText('svcTitle2', c.services.titleAccent);
+    setText('svcSubtitle', c.services.subtitle);
+  }
+  if (c.about) {
+    setText('aboutTitle1', c.about.title ? c.about.title + ' ' : '');
+    setText('aboutTitle2', c.about.titleAccent);
+    setText('aboutP1', c.about.p1);
+    setText('aboutP2', c.about.p2);
+    setText('aboutBig', c.about.stats?.big);
+    setText('aboutLbl', c.about.stats?.label);
+    if (c.about.features) {
+      document.getElementById('aboutFeatures').innerHTML = c.about.features.map(f =>
+        `<div class="about-feature"><span class="check">✓</span><span>${f}</span></div>`).join('');
     }
   }
 
-  function applyServices() {
-    const svcs = LSJ('emis_services');
-    if (!svcs || !svcs.length) return;
+  // Этапы — ВСЕГДА рендерим (из контента или из дефолта)
+  const proc = c.process || defaultContent.process;
+  setText('procTag', proc.tag);
+  setText('procTitle1', proc.title ? proc.title + ' ' : '');
+  setText('procTitle2', proc.titleAccent);
+  setText('procSubtitle', proc.subtitle);
+  const steps = proc.steps || defaultContent.process.steps;
+  document.getElementById('processSteps').innerHTML = steps.map(s =>
+    `<div class="step fade-in"><div class="step-num">${s.num}</div><h3>${s.title}</h3><p>${s.desc}</p></div>`).join('');
+
+  if (c.gallery) {
+    setText('galTag', c.gallery.tag);
+    setText('galTitle1', c.gallery.title ? c.gallery.title + ' ' : '');
+    setText('galTitle2', c.gallery.titleAccent);
+    setHTML('galSubtitle', c.gallery.subtitle);
+  }
+  if (c.cta) {
+    setText('ctaTitle', c.cta.title);
+    setText('ctaSubtitle', c.cta.subtitle);
+  }
+  if (c.contact) {
+    setText('contactTitle', c.contact.title);
+    setText('contactSubtitle', c.contact.subtitle);
+    if (c.contact.items) {
+      document.getElementById('contactItems').innerHTML = c.contact.items.map(it => {
+        let val = it.type === 'phone' ? `<a href="tel:${it.value.replace(/\D/g, '')}">${it.value}</a>` :
+                    it.type === 'link' ? `<a href="${it.url || '#' }" target="_blank" rel="noopener">${it.value}</a>` : it.value;
+        return `<div class="contact-item"><div class="contact-icon">${it.icon}</div><div><h4>${it.title}</h4><p>${val}</p></div></div>`;
+      }).join('');
+    }
+  }
+  if (c.footer) {
+    setText('footerDesc', c.footer.desc);
+    setText('footerCopy', c.footer.copy);
+    setText('footerGeo', c.footer.geo);
+  }
+
+  // Services
+  const svcs = LSJ('emis_services');
+  if (svcs && svcs.length) {
     document.getElementById('servicesGrid').innerHTML = svcs.map((s, i) => {
-      const img = s.image ? `<img src="${s.image}" alt="${s.title}" class="svc-img" loading="lazy">` : '';
-      const icon = !s.image ? `<div class="service-icon">${s.icon || '🔧'}</div>` : '';
-      return `<div class="service-card fade-in"><span class="num">0${i + 1}</span>${img}${icon}<h3>${s.title}</h3><p>${s.desc}</p></div>`;
+      const img = s.image ? `<img src="${s.image}" alt="${s.title}" class="svc-img" loading="lazy">` : `<div class="service-icon">${s.icon || '🔧'}</div>`;
+      return `<div class="service-card fade-in"><span class="num">0${i + 1}</span>${img}<h3>${s.title}</h3><p>${s.desc}</p></div>`;
     }).join('');
   }
 
-  function applyGallery() {
-    const gals = LSJ('emis_gallery');
-    if (!gals || !gals.length) return;
+  // Gallery
+  const gals = LSJ('emis_gallery');
+  if (gals && gals.length) {
     document.getElementById('galleryGrid').innerHTML = gals.map(g => {
       const bg = g.image ? `background-image:url('${g.image}');background-size:cover;background-position:center;` : '';
       return `<div class="gallery-item" style="${bg}"><span class="g-icon">📷</span><div class="cap">${g.title}<small>${g.subtitle}</small></div></div>`;
     }).join('');
-  }
-
-  function renderAll() {
-    applySettings();
-    applyContent();
-    applyServices();
-    applyGallery();
   }
 
   // Показать кнопку админки если авторизован
@@ -353,22 +354,15 @@
     document.getElementById('adminLink').style.display = 'flex';
   }
 
-  // Первый рендер
-  renderAll();
-
-  // Live-sync: обновляем при изменениях в другой вкладке
+  // Live-sync
   window.addEventListener('storage', e => {
-    if (e.key && e.key.startsWith('emis_')) {
-      renderAll();
-    }
+    if (e.key && e.key.startsWith('emis_')) location.reload();
   });
-
-  // Live-sync: BroadcastChannel (быстрее, в рамках одного origin)
   if (typeof BroadcastChannel !== 'undefined') {
     const bc = new BroadcastChannel('emis_sync');
-    bc.onmessage = () => renderAll();
+    bc.onmessage = () => location.reload();
   }
-})();
+});
 </script>
 </body>
 </html>
