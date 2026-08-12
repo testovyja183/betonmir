@@ -75,10 +75,11 @@ function loadData() {
   requests = JSON.parse(localStorage.getItem(LS_REQ) || '[]');
   settings = JSON.parse(localStorage.getItem(LS_SET) || JSON.stringify(defaultSettings()));
   content = JSON.parse(localStorage.getItem(LS_CONTENT) || JSON.stringify(defaultContent()));
-  // ГАРАНТИЯ: этапы всегда есть
+  // Fix corrupted empty steps
   if (!content.process) content.process = {};
   if (!content.process.steps || !content.process.steps.length) {
     content.process.steps = JSON.parse(JSON.stringify(defaultContent().process.steps));
+    localStorage.setItem(LS_CONTENT, JSON.stringify(content));
   }
 }
 function defaultSettings() {
@@ -228,7 +229,6 @@ function saveContent(e) {
       desc: row.querySelector('.step-desc').value
     });
   });
-  // ГАРАНТИЯ: не сохраняем пустые этапы
   if (!steps.length) {
     steps.push(...JSON.parse(JSON.stringify(defaultContent().process.steps)));
   }
@@ -309,7 +309,8 @@ const defaultServices = [
   {icon:'🎨', title:'Цветной бетон', desc:'Декоративные решения и цветные дорожки — новый стиль вашего участка.'}
 ];
 function renderServices() {
-  const list = JSON.parse(localStorage.getItem(LS_SVC) || JSON.stringify(defaultServices));
+  let list = JSON.parse(localStorage.getItem(LS_SVC) || 'null');
+  if (!list || !list.length) list = defaultServices;
   const wrap = document.getElementById('servicesList');
   if (!list.length) { wrap.innerHTML = '<div class="empty">Нет услуг</div>'; return; }
   wrap.innerHTML = list.map((s,i) => {
@@ -359,7 +360,8 @@ const defaultGallery = [
   {title:'Дорожки в саду', subtitle:'благоустройство', color:'gray'}
 ];
 function renderGallery() {
-  const list = JSON.parse(localStorage.getItem(LS_GAL) || JSON.stringify(defaultGallery));
+  let list = JSON.parse(localStorage.getItem(LS_GAL) || 'null');
+  if (!list || !list.length) list = defaultGallery;
   const wrap = document.getElementById('galleryList');
   if (!list.length) { wrap.innerHTML = '<div class="empty">Нет элементов</div>'; return; }
   wrap.innerHTML = list.map((g,i) => {

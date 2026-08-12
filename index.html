@@ -5,12 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="EMISLAVSTROY — бетонные работы в Минске и Минской области.">
 <meta name="theme-color" content="#ffffff">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Бетонный Мир — Бетонные работы | Минск и область</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='32' r='24' fill='%237ED3F5'/%3E%3Cpath d='M18 52 L36 37 L54 52 V76 H18 Z' fill='white' stroke='%2329ABE2' stroke-width='6'/%3E%3Cpath d='M48 48 L68 32 L88 48 V76 H48 Z' fill='white' stroke='%2329ABE2' stroke-width='6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
 
@@ -216,7 +219,7 @@
 </div>
 
 
-<script src="script.js"></script>
+<script src="script.js?v=9"></script>
 <script>
 /* ===== DYNAMIC CONTENT ENGINE ===== */
 document.addEventListener('DOMContentLoaded', function(){
@@ -233,11 +236,11 @@ document.addEventListener('DOMContentLoaded', function(){
   ];
 
   const defaultGallery = [
-    {title:'Отмостка вокруг дома', subtitle:'Минский район', image:''},
-    {title:'Цветная дорожка', subtitle:'декоративный бетон', image:''},
-    {title:'Парковка', subtitle:'частный дом', image:''},
-    {title:'Площадка под террасу', subtitle:'зона отдыха', image:''},
-    {title:'Дорожки в саду', subtitle:'благоустройство', image:''}
+    {title:'Отмостка вокруг дома', subtitle:'Минский район'},
+    {title:'Цветная дорожка', subtitle:'декоративный бетон'},
+    {title:'Парковка', subtitle:'частный дом'},
+    {title:'Площадка под террасу', subtitle:'зона отдыха'},
+    {title:'Дорожки в саду', subtitle:'благоустройство'}
   ];
 
   const defaultContent = {
@@ -253,6 +256,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
   const st = LSJ('emis_settings') || {};
   const c = LSJ('emis_content') || defaultContent;
+
+  // Fix corrupted empty steps in localStorage
+  if (c.process && c.process.steps && !c.process.steps.length) {
+    c.process.steps = JSON.parse(JSON.stringify(defaultContent.process.steps));
+    localStorage.setItem('emis_content', JSON.stringify(c));
+  }
 
   function setText(id, val) { const el = document.getElementById(id); if (el && val !== undefined) el.textContent = val; }
   function setHTML(id, val) { const el = document.getElementById(id); if (el && val !== undefined) el.innerHTML = val; }
@@ -311,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 
-  // Этапы — ВСЕГДА рендерим (из контента или из дефолта)
+  // Этапы — рендерим с visible классом сразу
   const proc = c.process || defaultContent.process;
   setText('procTag', proc.tag);
   setText('procTitle1', proc.title ? proc.title + ' ' : '');
@@ -319,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function(){
   setText('procSubtitle', proc.subtitle);
   const steps = (proc.steps && proc.steps.length) ? proc.steps : defaultContent.process.steps;
   document.getElementById('processSteps').innerHTML = steps.map(s =>
-    `<div class="step fade-in"><div class="step-num">${s.num}</div><h3>${s.title}</h3><p>${s.desc}</p></div>`).join('');
+    `<div class="step fade-in visible"><div class="step-num">${s.num}</div><h3>${s.title}</h3><p>${s.desc}</p></div>`).join('');
 
   if (c.gallery) {
     setText('galTag', c.gallery.tag);
@@ -348,21 +357,21 @@ document.addEventListener('DOMContentLoaded', function(){
     setText('footerGeo', c.footer.geo);
   }
 
-  // Services
+  // Services — fallback + visible
   const svcs = LSJ('emis_services') || defaultServices;
   if (svcs && svcs.length) {
     document.getElementById('servicesGrid').innerHTML = svcs.map((s, i) => {
       const img = s.image ? `<img src="${s.image}" alt="${s.title}" class="svc-img" loading="lazy">` : `<div class="service-icon">${s.icon || '🔧'}</div>`;
-      return `<div class="service-card fade-in"><span class="num">0${i + 1}</span>${img}<h3>${s.title}</h3><p>${s.desc}</p></div>`;
+      return `<div class="service-card fade-in visible"><span class="num">0${i + 1}</span>${img}<h3>${s.title}</h3><p>${s.desc}</p></div>`;
     }).join('');
   }
 
-  // Gallery
+  // Gallery — fallback + visible
   const gals = LSJ('emis_gallery') || defaultGallery;
   if (gals && gals.length) {
     document.getElementById('galleryGrid').innerHTML = gals.map(g => {
       const bg = g.image ? `background-image:url('${g.image}');background-size:cover;background-position:center;` : '';
-      return `<div class="gallery-item" style="${bg}"><span class="g-icon">📷</span><div class="cap">${g.title}<small>${g.subtitle}</small></div></div>`;
+      return `<div class="gallery-item fade-in visible" style="${bg}"><span class="g-icon">📷</span><div class="cap">${g.title}<small>${g.subtitle}</small></div></div>`;
     }).join('');
   }
 
