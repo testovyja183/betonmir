@@ -24,6 +24,12 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
 function submitForm(e) {
     e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const msg = document.getElementById('msg').value.trim();
+    const requests = JSON.parse(localStorage.getItem('emis_requests') || '[]');
+    requests.push({ name, phone, msg, status: 'new', date: new Date().toISOString() });
+    localStorage.setItem('emis_requests', JSON.stringify(requests));
     alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
     e.target.reset();
 }

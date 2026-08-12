@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Админ-панель — EMISLAVSTROY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
   <div class="login-card">
     <span class="logo">◆ EMISLAVSTROY</span>
     <h1>Вход в панель</h1>
-    <p>Введите пароль администратора для доступа к управлению сайтом.</p>
+    <p>Введите пароль администратора.</p>
     <form onsubmit="doLogin(event)">
       <div class="form-row">
         <label>Пароль</label>
@@ -24,14 +24,13 @@
       </div>
       <button type="submit" class="btn btn-primary" style="width:100%;">Войти</button>
     </form>
-    <p style="margin-top:1.2rem;font-size:.8rem;color:var(--text-muted);text-align:center;">Демо-пароль: <b>admin2026</b></p>
+    <p style="margin-top:1rem;font-size:.78rem;color:var(--text-muted);text-align:center;">Демо-пароль: <b>admin2026</b></p>
   </div>
 </div>
 
 <!-- ADMIN LAYOUT -->
 <div class="admin-layout" id="adminLayout">
 
-  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
       <div class="logo-main">◆ EMISLAVSTROY</div>
@@ -39,7 +38,8 @@
     </div>
     <ul class="sidebar-nav">
       <li><a data-page="dashboard" onclick="switchPage('dashboard')" class="active"><span class="icon">📊</span> Дашборд</a></li>
-      <li><a data-page="requests" onclick="switchPage('requests')"><span class="icon">📝</span> Заявки</a></li>
+      <li><a data-page="content" onclick="switchPage('content')"><span class="icon">📝</span> Тексты сайта</a></li>
+      <li><a data-page="requests" onclick="switchPage('requests')"><span class="icon">📨</span> Заявки</a></li>
       <li><a data-page="services" onclick="switchPage('services')"><span class="icon">🛠</span> Услуги</a></li>
       <li><a data-page="gallery" onclick="switchPage('gallery')"><span class="icon">🖼</span> Галерея</a></li>
       <li><a data-page="settings" onclick="switchPage('settings')"><span class="icon">⚙️</span> Настройки</a></li>
@@ -52,14 +52,12 @@
           <div class="role">Полный доступ</div>
         </div>
       </div>
-      <button class="btn btn-ghost" style="width:100%;margin-top:.8rem;" onclick="logout()">Выйти</button>
+      <button class="btn btn-ghost" style="width:100%;margin-top:.7rem;" onclick="logout()">Выйти</button>
     </div>
   </aside>
 
-  <!-- OVERLAY MOBILE -->
   <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 
-  <!-- MAIN -->
   <div class="main">
     <header class="header">
       <div style="display:flex;align-items:center;">
@@ -76,45 +74,144 @@
       <!-- DASHBOARD -->
       <div class="page active" id="page-dashboard">
         <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon blue">📝</div>
-            <div><div class="stat-value" id="dashTotal">0</div><div class="stat-label">Всего заявок</div></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon yellow">⏳</div>
-            <div><div class="stat-value" id="dashNew">0</div><div class="stat-label">Новые</div></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon green">✓</div>
-            <div><div class="stat-value" id="dashDone">0</div><div class="stat-label">Выполнено</div></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon red">📈</div>
-            <div><div class="stat-value" id="dashConversion">0%</div><div class="stat-label">Конверсия</div></div>
-          </div>
+          <div class="stat-card"><div class="stat-icon blue">📨</div><div><div class="stat-value" id="dashTotal">0</div><div class="stat-label">Всего заявок</div></div></div>
+          <div class="stat-card"><div class="stat-icon yellow">⏳</div><div><div class="stat-value" id="dashNew">0</div><div class="stat-label">Новые</div></div></div>
+          <div class="stat-card"><div class="stat-icon green">✓</div><div><div class="stat-value" id="dashDone">0</div><div class="stat-label">Выполнено</div></div></div>
+          <div class="stat-card"><div class="stat-icon red">📈</div><div><div class="stat-value" id="dashConversion">0%</div><div class="stat-label">Конверсия</div></div></div>
         </div>
-
         <div class="card">
-          <div class="card-header"><h3>Активность за неделю</h3></div>
+          <div class="card-header"><h3>Активность за 7 дней</h3></div>
           <div class="card-body"><div class="chart-wrap"><canvas id="statsChart"></canvas></div></div>
         </div>
-
-        <div class="card" style="margin-top:1.2rem;">
-          <div class="card-header"><h3>Последние заявки</h3><a class="btn btn-sm btn-ghost" onclick="switchPage('requests')">Все заявки →</a></div>
+        <div class="card" style="margin-top:1rem;">
+          <div class="card-header"><h3>Последние заявки</h3><a class="btn btn-sm btn-ghost" onclick="switchPage('requests')">Все →</a></div>
           <div class="card-body table-wrap">
-            <table><thead><tr><th>Имя</th><th>Телефон</th><th>Статус</th><th>Дата</th></tr></thead>
-              <tbody id="dashRecent"><tr><td colspan="4" class="empty">Загрузка...</td></tbody>
-            </table>
+            <table><thead><tr><th>Имя</th><th>Телефон</th><th>Статус</th><th>Дата</th></tr></thead><tbody id="dashRecent"><tr><td colspan="4" class="empty">Нет данных</td></tr></tbody></table>
           </div>
         </div>
+      </div>
+
+      <!-- CONTENT EDITOR -->
+      <div class="page" id="page-content">
+        <form onsubmit="saveContent(event)">
+
+          <div class="card">
+            <div class="card-header"><h3>🎯 Hero (главный экран)</h3></div>
+            <div class="card-body">
+              <div class="editor-grid">
+                <div class="editor-group"><label>Бейдж</label><input type="text" id="c_hero_badge"></div>
+                <div class="editor-group"><label>Заголовок (до акцента)</label><input type="text" id="c_hero_title"></div>
+                <div class="editor-group"><label>Акцент (подчёркнутый)</label><input type="text" id="c_hero_accent"></div>
+                <div class="editor-group"><label>Подзаголовок</label><textarea id="c_hero_subtitle"></textarea></div>
+                <div class="editor-group"><label>Кнопка 1</label><input type="text" id="c_hero_btn1"></div>
+                <div class="editor-group"><label>Кнопка 2</label><input type="text" id="c_hero_btn2"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3>🛠 Услуги (заголовки)</h3></div>
+            <div class="card-body">
+              <div class="editor-grid">
+                <div class="editor-group"><label>Тег</label><input type="text" id="c_svc_tag"></div>
+                <div class="editor-group"><label>Заголовок (до акцента)</label><input type="text" id="c_svc_title"></div>
+                <div class="editor-group"><label>Акцент</label><input type="text" id="c_svc_accent"></div>
+                <div class="editor-group"><label>Подзаголовок</label><textarea id="c_svc_subtitle"></textarea></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3>ℹ️ О нас</h3></div>
+            <div class="card-body">
+              <div class="editor-grid">
+                <div class="editor-group"><label>Заголовок (до акцента)</label><input type="text" id="c_about_title"></div>
+                <div class="editor-group"><label>Акцент</label><input type="text" id="c_about_accent"></div>
+                <div class="editor-group"><label>Абзац 1</label><textarea id="c_about_p1"></textarea></div>
+                <div class="editor-group"><label>Абзац 2</label><textarea id="c_about_p2"></textarea></div>
+                <div class="editor-group"><label>Большая цифра</label><input type="text" id="c_about_big"></div>
+                <div class="editor-group"><label>Подпись к цифре</label><input type="text" id="c_about_lbl"></div>
+              </div>
+              <div style="margin-top:.6rem;">
+                <label style="font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:.3rem;display:block;">Преимущества (по одному на строку)</label>
+                <textarea id="c_about_features" style="width:100%;padding:.65rem .85rem;border-radius:8px;border:2px solid var(--border);background:#0b1221;color:var(--text);font-family:inherit;font-size:.9rem;min-height:80px;resize:vertical;"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3>📋 Этапы работы</h3></div>
+            <div class="card-body">
+              <div class="editor-grid">
+                <div class="editor-group"><label>Тег</label><input type="text" id="c_proc_tag"></div>
+                <div class="editor-group"><label>Заголовок (до акцента)</label><input type="text" id="c_proc_title"></div>
+                <div class="editor-group"><label>Акцент</label><input type="text" id="c_proc_accent"></div>
+                <div class="editor-group"><label>Подзаголовок</label><textarea id="c_proc_subtitle"></textarea></div>
+              </div>
+              <div style="margin-top:.8rem;">
+                <label style="font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:.3rem;display:block;">Этапы (JSON: [{"num":"1","title":"...","desc":"..."}, ...])</label>
+                <textarea id="c_proc_steps" style="width:100%;padding:.65rem .85rem;border-radius:8px;border:2px solid var(--border);background:#0b1221;color:var(--text);font-family:monospace;font-size:.82rem;min-height:120px;resize:vertical;"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3>🖼 Галерея (заголовки)</h3></div>
+            <div class="card-body">
+              <div class="editor-grid">
+                <div class="editor-group"><label>Тег</label><input type="text" id="c_gal_tag"></div>
+                <div class="editor-group"><label>Заголовок (до акцента)</label><input type="text" id="c_gal_title"></div>
+                <div class="editor-group"><label>Акцент</label><input type="text" id="c_gal_accent"></div>
+                <div class="editor-group"><label>Подзаголовок (HTML)</label><textarea id="c_gal_subtitle"></textarea></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3>📞 CTA-блок</h3></div>
+            <div class="card-body">
+              <div class="editor-grid">
+                <div class="editor-group"><label>Заголовок</label><input type="text" id="c_cta_title"></div>
+                <div class="editor-group"><label>Подзаголовок</label><textarea id="c_cta_subtitle"></textarea></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3>📇 Контакты</h3></div>
+            <div class="card-body">
+              <div class="editor-grid">
+                <div class="editor-group"><label>Заголовок</label><input type="text" id="c_cont_title"></div>
+                <div class="editor-group"><label>Подзаголовок</label><textarea id="c_cont_subtitle"></textarea></div>
+              </div>
+              <div style="margin-top:.8rem;">
+                <label style="font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:.3rem;display:block;">Контактные элементы (JSON)</label>
+                <textarea id="c_cont_items" style="width:100%;padding:.65rem .85rem;border-radius:8px;border:2px solid var(--border);background:#0b1221;color:var(--text);font-family:monospace;font-size:.82rem;min-height:140px;resize:vertical;"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3>🔻 Подвал</h3></div>
+            <div class="card-body">
+              <div class="editor-grid">
+                <div class="editor-group"><label>Описание</label><textarea id="c_foot_desc"></textarea></div>
+                <div class="editor-group"><label>Копирайт</label><input type="text" id="c_foot_copy"></div>
+                <div class="editor-group"><label>Гео-строка</label><input type="text" id="c_foot_geo"></div>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:2rem;">💾 Сохранить все тексты</button>
+        </form>
       </div>
 
       <!-- REQUESTS -->
       <div class="page" id="page-requests">
         <div class="card">
           <div class="card-header">
-            <h3>Список заявок</h3>
-            <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+            <h3>Заявки</h3>
+            <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
               <button class="btn btn-sm btn-ghost" onclick="setFilter('all')">Все</button>
               <button class="btn btn-sm btn-ghost" onclick="setFilter('new')">Новые</button>
               <button class="btn btn-sm btn-ghost" onclick="setFilter('wait')">В работе</button>
@@ -125,7 +222,7 @@
           <div class="card-body table-wrap">
             <table>
               <thead><tr><th>Имя</th><th>Телефон</th><th>Сообщение</th><th>Статус</th><th>Дата</th><th>Действия</th></tr></thead>
-              <tbody id="reqTable"><tr><td colspan="6" class="empty">Загрузка...</td></tr></tbody>
+              <tbody id="reqTable"><tr><td colspan="6" class="empty">Нет заявок</td></tr></tbody>
             </table>
           </div>
         </div>
@@ -136,7 +233,7 @@
         <div class="card">
           <div class="card-header">
             <h3>Услуги на сайте</h3>
-            <div style="display:flex;gap:.5rem;">
+            <div style="display:flex;gap:.4rem;">
               <button class="btn btn-sm btn-ghost" onclick="resetServices()">↺ Сбросить</button>
               <button class="btn btn-sm btn-primary" onclick="editService('')">+ Добавить</button>
             </div>
@@ -149,7 +246,7 @@
       <div class="page" id="page-gallery">
         <div class="card">
           <div class="card-header">
-            <h3>Элементы галереи</h3>
+            <h3>Галерея работ</h3>
             <button class="btn btn-sm btn-primary" onclick="editGallery('')">+ Добавить</button>
           </div>
           <div class="card-body" id="galleryList"></div>
@@ -159,20 +256,20 @@
       <!-- SETTINGS -->
       <div class="page" id="page-settings">
         <div class="card">
-          <div class="card-header"><h3>Контакты и реквизиты</h3></div>
+          <div class="card-header"><h3>Контакты и SEO</h3></div>
           <div class="card-body">
             <form onsubmit="saveSettings(event)">
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:1rem;">
-                <div class="form-group"><label>Телефон</label><input type="text" id="setPhone"></div>
-                <div class="form-group"><label>Email</label><input type="email" id="setEmail"></div>
-                <div class="form-group"><label>Адрес / география</label><input type="text" id="setAddress"></div>
-                <div class="form-group"><label>Режим работы</label><input type="text" id="setHours"></div>
-                <div class="form-group"><label>Instagram</label><input type="url" id="setInst"></div>
-                <div class="form-group"><label>TikTok</label><input type="url" id="setTiktok"></div>
+              <div class="editor-grid">
+                <div class="editor-group"><label>Телефон</label><input type="text" id="setPhone"></div>
+                <div class="editor-group"><label>Email</label><input type="email" id="setEmail"></div>
+                <div class="editor-group"><label>Адрес / география</label><input type="text" id="setAddress"></div>
+                <div class="editor-group"><label>Режим работы</label><input type="text" id="setHours"></div>
+                <div class="editor-group"><label>Instagram URL</label><input type="url" id="setInst"></div>
+                <div class="editor-group"><label>TikTok URL</label><input type="url" id="setTiktok"></div>
+                <div class="editor-group"><label>Заголовок сайта (title)</label><input type="text" id="setTitle"></div>
+                <div class="editor-group"><label>Meta description</label><textarea id="setMeta"></textarea></div>
               </div>
-              <div class="form-group" style="margin-top:.5rem;"><label>Заголовок сайта (title)</label><input type="text" id="setTitle"></div>
-              <div class="form-group"><label>Meta description</label><textarea id="setMeta"></textarea></div>
-              <button type="submit" class="btn btn-primary">💾 Сохранить настройки</button>
+              <button type="submit" class="btn btn-primary" style="margin-top:.6rem;">💾 Сохранить настройки</button>
             </form>
           </div>
         </div>
@@ -189,15 +286,11 @@
     <form onsubmit="saveEdit(event)">
       <div class="modal-body">
         <input type="hidden" id="editIdx">
-        <div class="form-group"><label>Имя</label><input type="text" id="editName" required></div>
-        <div class="form-group"><label>Телефон</label><input type="tel" id="editPhone" required></div>
-        <div class="form-group"><label>Сообщение</label><textarea id="editMsg"></textarea></div>
-        <div class="form-group"><label>Статус</label>
-          <select id="editStatus">
-            <option value="new">Новая</option>
-            <option value="wait">В работе</option>
-            <option value="done">Выполнена</option>
-          </select>
+        <div class="form-row"><label>Имя</label><input type="text" id="editName" required></div>
+        <div class="form-row"><label>Телефон</label><input type="tel" id="editPhone" required></div>
+        <div class="form-row"><label>Сообщение</label><textarea id="editMsg"></textarea></div>
+        <div class="form-row"><label>Статус</label>
+          <select id="editStatus"><option value="new">Новая</option><option value="wait">В работе</option><option value="done">Выполнена</option></select>
         </div>
       </div>
       <div class="modal-footer">
@@ -215,9 +308,17 @@
     <form onsubmit="saveService(event)">
       <div class="modal-body">
         <input type="hidden" id="svcIdx">
-        <div class="form-group"><label>Иконка (emoji)</label><input type="text" id="svcIcon" placeholder="🏡" required></div>
-        <div class="form-group"><label>Название</label><input type="text" id="svcTitle" required></div>
-        <div class="form-group"><label>Описание</label><textarea id="svcDesc" required></textarea></div>
+        <div class="form-row"><label>Название</label><input type="text" id="svcTitle" required></div>
+        <div class="form-row"><label>Описание</label><textarea id="svcDesc" required></textarea></div>
+        <div class="form-row">
+          <label>Фото</label>
+          <img class="img-preview" id="svcPreview">
+          <div class="file-input-wrap">
+            <div class="file-btn">📎 Нажмите или перетащите фото</div>
+            <input type="file" id="svcFile" accept="image/*" onchange="handleFile(this,'svcPreview','svcImage')">
+          </div>
+          <small>Или вставьте URL: <input type="text" id="svcImage" placeholder="https://..." style="margin-top:.3rem;"></small>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-ghost" onclick="closeModal('modalService')">Отмена</button>
@@ -234,16 +335,16 @@
     <form onsubmit="saveGallery(event)">
       <div class="modal-body">
         <input type="hidden" id="galIdx">
-        <div class="form-group"><label>Название</label><input type="text" id="galTitle" required></div>
-        <div class="form-group"><label>Подпись</label><input type="text" id="galSubtitle" required></div>
-        <div class="form-group"><label>Цвет фона</label>
-          <select id="galColor">
-            <option value="graphite">Тёмный</option>
-            <option value="sky">Голубой</option>
-            <option value="blue">Синий</option>
-            <option value="dark">Глубокий синий</option>
-            <option value="gray">Серый</option>
-          </select>
+        <div class="form-row"><label>Название</label><input type="text" id="galTitle" required></div>
+        <div class="form-row"><label>Подпись</label><input type="text" id="galSubtitle" required></div>
+        <div class="form-row">
+          <label>Фото</label>
+          <img class="img-preview" id="galPreview">
+          <div class="file-input-wrap">
+            <div class="file-btn">📎 Нажмите или перетащите фото</div>
+            <input type="file" id="galFile" accept="image/*" onchange="handleFile(this,'galPreview','galImage')">
+          </div>
+          <small>Или вставьте URL: <input type="text" id="galImage" placeholder="https://..." style="margin-top:.3rem;"></small>
         </div>
       </div>
       <div class="modal-footer">
@@ -254,7 +355,6 @@
   </div>
 </div>
 
-<!-- TOASTS -->
 <div class="toast-container" id="toastContainer"></div>
 
 <script src="admin.js"></script>
