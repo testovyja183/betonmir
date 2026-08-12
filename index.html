@@ -2,9 +2,8 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<!-- viewport-fit=cover для экранов с вырезами (iPhone) -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="EMISLAVSTROY — бетонные работы в Минске и Минской области. Отмостки, дорожки, парковки, площадки из бетона. ☎ +375 29 662-52-66">
+<meta name="description" content="EMISLAVSTROY — бетонные работы в Минске и Минской области.">
 <meta name="theme-color" content="#ffffff">
 <title>EMISLAVSTROY — Бетонные работы | Минск и область</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='32' r='24' fill='%237ED3F5'/%3E%3Cpath d='M18 52 L36 37 L54 52 V76 H18 Z' fill='white' stroke='%2329ABE2' stroke-width='6'/%3E%3Cpath d='M48 48 L68 32 L88 48 V76 H48 Z' fill='white' stroke='%2329ABE2' stroke-width='6'/%3E%3C/svg%3E">
@@ -15,241 +14,358 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
+<!-- Кнопка перехода в админку (видна только при наличии токена) -->
+<a href="admin.html" id="adminLink" class="admin-fab" title="Админ-панель" style="display:none;">⚙️</a>
+
 <nav class="navbar" aria-label="Главная навигация">
-    <div class="nav-container">
-        <a href="#" class="logo" aria-label="EMISLAVSTROY — на главную">
-            <span class="logo-main">EMISLAVSTROY</span>
-            <span class="logo-sub">Бетонные работы</span>
-        </a>
-        <ul class="nav-links">
-            <li><a href="#services">Услуги</a></li>
-            <li><a href="#about">О нас</a></li>
-            <li><a href="#process">Этапы</a></li>
-            <li><a href="#gallery">Работы</a></li>
-            <li><a href="#contact">Контакты</a></li>
-        </ul>
-        <a href="tel:+375296625266" class="nav-phone">+375 29 662-52-66</a>
-        <a href="tel:+375296625266" class="nav-call" aria-label="Позвонить">📞</a>
-        <button class="hamburger" id="hamburger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
-            <span></span><span></span><span></span>
-        </button>
-    </div>
+  <div class="nav-container">
+    <a href="#" class="logo" aria-label="EMISLAVSTROY — на главную">
+      <span class="logo-main">EMISLAVSTROY</span>
+      <span class="logo-sub">Бетонные работы</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#about">О нас</a></li>
+      <li><a href="#process">Этапы</a></li>
+      <li><a href="#gallery">Работы</a></li>
+      <li><a href="#contact">Контакты</a></li>
+    </ul>
+    <a href="tel:+375296625266" class="nav-phone" id="navPhone">+375 29 662-52-66</a>
+    <a href="tel:+375296625266" class="nav-call" aria-label="Позвонить">📞</a>
+    <button class="hamburger" id="hamburger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
-<!-- МОБИЛЬНОЕ МЕНЮ -->
 <div class="mobile-menu" id="mobileMenu">
-    <a class="m-link" href="#services">Услуги</a>
-    <a class="m-link" href="#about">О нас</a>
-    <a class="m-link" href="#process">Этапы</a>
-    <a class="m-link" href="#gallery">Работы</a>
-    <a class="m-link" href="#contact">Контакты</a>
-    <a class="m-phone" href="tel:+375296625266">📞 +375 29 662-52-66</a>
-    <div class="m-social">
-        <a href="https://www.instagram.com/emislavstroy" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
-        <a href="https://www.tiktok.com/@emislavstroy" target="_blank" rel="noopener" aria-label="TikTok">TT</a>
-    </div>
+  <a class="m-link" href="#services">Услуги</a>
+  <a class="m-link" href="#about">О нас</a>
+  <a class="m-link" href="#process">Этапы</a>
+  <a class="m-link" href="#gallery">Работы</a>
+  <a class="m-link" href="#contact">Контакты</a>
+  <a class="m-phone" href="tel:+375296625266" id="mobPhone">📞 +375 29 662-52-66</a>
+  <div class="m-social">
+    <a href="https://www.instagram.com/emislavstroy" target="_blank" rel="noopener" aria-label="Instagram" id="mobInst">IG</a>
+    <a href="https://www.tiktok.com/@emislavstroy" target="_blank" rel="noopener" aria-label="TikTok" id="mobTiktok">TT</a>
+  </div>
 </div>
 
-<!-- HERO -->
 <header class="hero">
-    <div class="hero-blob blob-1"></div>
-    <div class="hero-blob blob-2"></div>
-    <div class="hero-container">
-        <div>
-            <div class="hero-badge"><span class="dot"></span> Минск и Минская область</div>
-            <h1>Благоустройство из бетона <span class="accent">под ключ
-                <svg viewBox="0 0 200 20" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M3 15 C 60 4, 140 4, 197 12" stroke="#29ABE2" stroke-width="6" stroke-linecap="round"/></svg>
-            </span></h1>
-            <p>Отмостки, дорожки, парковки и площадки из бетона. Надёжно, эстетично и с гарантией — как на фото в нашем Instagram.</p>
-            <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">Рассчитать стоимость</a>
-                <a href="#gallery" class="btn btn-ghost">Смотреть работы</a>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <div class="hero-card">
-                <svg viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Логотип EMISLAVSTROY">
-                    <circle cx="150" cy="70" r="48" fill="#7ED3F5"/>
-                    <g stroke="#29ABE2" stroke-width="7" fill="#fff" stroke-linejoin="round">
-                        <path d="M70 95 L110 62 L150 95 V140 H70 Z"/>
-                        <path d="M140 88 L185 52 L230 88 V140 H140 Z"/>
-                    </g>
-                    <g fill="#29ABE2">
-                        <rect x="88" y="105" width="14" height="14" rx="2"/>
-                        <rect x="112" y="105" width="14" height="14" rx="2"/>
-                        <rect x="163" y="98" width="16" height="16" rx="2"/>
-                        <rect x="192" y="98" width="16" height="16" rx="2"/>
-                    </g>
-                    <path d="M40 150 C 110 128, 200 128, 262 146 C 200 140, 110 142, 40 158 Z" fill="#4A4B4D"/>
-                    <text x="150" y="178" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="800" font-size="20" fill="#29ABE2" letter-spacing="1">EMISLAVSTROY</text>
-                    <text x="150" y="194" text-anchor="middle" font-family="Inter, sans-serif" font-weight="600" font-size="9" fill="#8A8D90" letter-spacing="3">БЕТОННЫЕ РАБОТЫ</text>
-                </svg>
-            </div>
-            <div class="hero-float float-1"><span class="ico">✓</span> Гарантия качества</div>
-            <div class="hero-float float-2"><span class="ico">★</span> 100+ проектов</div>
-        </div>
+  <div class="hero-blob blob-1"></div>
+  <div class="hero-blob blob-2"></div>
+  <div class="hero-container">
+    <div>
+      <div class="hero-badge"><span class="dot"></span> <span id="heroBadge">Минск и Минская область</span></div>
+      <h1><span id="heroTitle1">Благоустройство из бетона </span><span class="accent" id="heroTitle2">под ключ
+        <svg viewBox="0 0 200 20" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M3 15 C 60 4, 140 4, 197 12" stroke="#29ABE2" stroke-width="6" stroke-linecap="round"/></svg>
+      </span></h1>
+      <p id="heroSubtitle">Отмостки, дорожки, парковки и площадки из бетона. Надёжно, эстетично и с гарантией.</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary" id="heroBtn1">Рассчитать стоимость</a>
+        <a href="#gallery" class="btn btn-ghost" id="heroBtn2">Смотреть работы</a>
+      </div>
     </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <svg viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Логотип EMISLAVSTROY">
+          <circle cx="150" cy="70" r="48" fill="#7ED3F5"/>
+          <g stroke="#29ABE2" stroke-width="7" fill="#fff" stroke-linejoin="round">
+            <path d="M70 95 L110 62 L150 95 V140 H70 Z"/>
+            <path d="M140 88 L185 52 L230 88 V140 H140 Z"/>
+          </g>
+          <g fill="#29ABE2">
+            <rect x="88" y="105" width="14" height="14" rx="2"/>
+            <rect x="112" y="105" width="14" height="14" rx="2"/>
+            <rect x="163" y="98" width="16" height="16" rx="2"/>
+            <rect x="192" y="98" width="16" height="16" rx="2"/>
+          </g>
+          <path d="M40 150 C 110 128, 200 128, 262 146 C 200 140, 110 142, 40 158 Z" fill="#4A4B4D"/>
+          <text x="150" y="178" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="800" font-size="20" fill="#29ABE2" letter-spacing="1">EMISLAVSTROY</text>
+          <text x="150" y="194" text-anchor="middle" font-family="Inter, sans-serif" font-weight="600" font-size="9" fill="#8A8D90" letter-spacing="3">БЕТОННЫЕ РАБОТЫ</text>
+        </svg>
+      </div>
+      <div class="hero-float float-1"><span class="ico">✓</span> Гарантия качества</div>
+      <div class="hero-float float-2"><span class="ico">★</span> 100+ проектов</div>
+    </div>
+  </div>
 </header>
 
 <main>
-<!-- УСЛУГИ -->
 <section id="services">
-    <div class="container">
-        <div class="section-header fade-in">
-            <div class="section-tag">Наши услуги</div>
-            <h2 class="section-title">Что мы <span>делаем</span></h2>
-            <p class="section-subtitle">Полный комплекс бетонных работ для вашего участка — от дорожки до парковки</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card fade-in"><span class="num">01</span><div class="service-icon">🏡</div><h3>Отмостки бетонные</h3><p>Надёжная защита фундамента дома с правильным уклоном и армированием.</p></div>
-            <div class="service-card fade-in"><span class="num">02</span><div class="service-icon">🛤️</div><h3>Дорожки из бетона</h3><p>Аккуратные и долговечные садовые дорожки любой формы и фактуры.</p></div>
-            <div class="service-card fade-in"><span class="num">03</span><div class="service-icon">🚗</div><h3>Парковки из бетона</h3><p>Прочные парковочные площадки, выдерживающие ежедневные нагрузки.</p></div>
-            <div class="service-card fade-in"><span class="num">04</span><div class="service-icon">⬜</div><h3>Площадки из бетона</h3><p>Ровные и практичные площадки под террасы, зоны отдыха и хознужды.</p></div>
-            <div class="service-card fade-in"><span class="num">05</span><div class="service-icon">🌿</div><h3>Благоустройство</h3><p>Комплексное благоустройство частной территории с помощью бетона.</p></div>
-            <div class="service-card fade-in"><span class="num">06</span><div class="service-icon">🎨</div><h3>Цветной бетон</h3><p>Декоративные решения и цветные дорожки — новый стиль вашего участка.</p></div>
-        </div>
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag" id="svcTag">Наши услуги</div>
+      <h2 class="section-title"><span id="svcTitle1">Что мы </span><span id="svcTitle2">делаем</span></h2>
+      <p class="section-subtitle" id="svcSubtitle">Полный комплекс бетонных работ для вашего участка</p>
     </div>
+    <div class="services-grid" id="servicesGrid"></div>
+  </div>
 </section>
 
-<!-- О НАС -->
 <section id="about" class="about">
-    <div class="container">
-        <div class="about-grid">
-            <div class="about-visual fade-in">
-                <div class="about-main-card">
-                    <div class="big">100+</div>
-                    <div class="lbl">выполненных объектов в Минске и области</div>
-                </div>
-                <div class="about-mini mini-1">🇧 Беларусь<small>работаем по всей области</small></div>
-                <div class="about-mini mini-2">⚡ Точно в срок<small>фиксируем сроки в договоре</small></div>
-            </div>
-            <div class="about-text fade-in">
-                <h2>Почему выбирают <span>EMISLAVSTROY</span></h2>
-                <p>Мы специализируемся исключительно на бетонных работах — и делаем это профессионально. Каждый объект: от небольшой дорожки до большой парковки — выполняем аккуратно и на совесть.</p>
-                <p>Работаем по проверенным технологиям, используем качественный бетон и армирование, чтобы результат служил десятилетиями.</p>
-                <div class="about-features">
-                    <div class="about-feature"><span class="check">✓</span><span>Гарантия на работы</span></div>
-                    <div class="about-feature"><span class="check">✓</span><span>Своя техника и инструмент</span></div>
-                    <div class="about-feature"><span class="check">✓</span><span>Бесплатный выезд на замер</span></div>
-                    <div class="about-feature"><span class="check">✓</span><span>Честная смета без сюрпризов</span></div>
-                </div>
-            </div>
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual fade-in">
+        <div class="about-main-card">
+          <div class="big" id="aboutBig">100+</div>
+          <div class="lbl" id="aboutLbl">выполненных объектов в Минске и области</div>
         </div>
+        <div class="about-mini mini-1">🇧 Беларусь<small>работаем по всей области</small></div>
+        <div class="about-mini mini-2">⚡ Точно в срок<small>фиксируем сроки в договоре</small></div>
+      </div>
+      <div class="about-text fade-in">
+        <h2><span id="aboutTitle1">Почему выбирают </span><span id="aboutTitle2">EMISLAVSTROY</span></h2>
+        <p id="aboutP1">Мы специализируемся исключительно на бетонных работах.</p>
+        <p id="aboutP2">Работаем по проверенным технологиям.</p>
+        <div class="about-features" id="aboutFeatures"></div>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- ЭТАПЫ -->
 <section id="process">
-    <div class="container">
-        <div class="section-header fade-in">
-            <div class="section-tag">Этапы работы</div>
-            <h2 class="section-title">Как мы <span>работаем</span></h2>
-            <p class="section-subtitle">Прозрачный процесс от звонка до готового результата</p>
-        </div>
-        <div class="process-steps">
-            <div class="step fade-in"><div class="step-num">1</div><h3>Заявка</h3><p>Звоните или пишете нам — консультируем бесплатно</p></div>
-            <div class="step fade-in"><div class="step-num">2</div><h3>Выезд и замер</h3><p>Приезжаем на объект, оцениваем объём работ</p></div>
-            <div class="step fade-in"><div class="step-num">3</div><h3>Смета и сроки</h3><p>Называем точную стоимость и дату готовности</p></div>
-            <div class="step fade-in"><div class="step-num">4</div><h3>Сдача объекта</h3><p>Выполняем работы и убираем за собой территорию</p></div>
-        </div>
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag" id="procTag">Этапы работы</div>
+      <h2 class="section-title"><span id="procTitle1">Как мы </span><span id="procTitle2">работаем</span></h2>
+      <p class="section-subtitle" id="procSubtitle">Прозрачный процесс от звонка до готового результата</p>
     </div>
+    <div class="process-steps" id="processSteps"></div>
+  </div>
 </section>
 
-<!-- ГАЛЕРЕЯ -->
 <section id="gallery" class="gallery">
-    <div class="container">
-        <div class="section-header fade-in">
-            <div class="section-tag">Портфолио</div>
-            <h2 class="section-title">Наши <span>работы</span></h2>
-            <p class="section-subtitle">Больше фото и видео — в нашем Instagram <a href="https://www.instagram.com/emislavstroy" target="_blank" rel="noopener" style="color:var(--blue-dark);font-weight:600;">@emislavstroy</a></p>
-        </div>
-        <div class="gallery-grid fade-in">
-            <div class="gallery-item"><span class="g-icon">📷</span><div class="cap">Отмостка вокруг дома<small>Минский район</small></div></div>
-            <div class="gallery-item"><span class="g-icon">📷</span><div class="cap">Цветная дорожка<small>декоративный бетон</small></div></div>
-            <div class="gallery-item"><span class="g-icon">📷</span><div class="cap">Парковка<small>частный дом</small></div></div>
-            <div class="gallery-item"><span class="g-icon">📷</span><div class="cap">Площадка под террасу<small>зона отдыха</small></div></div>
-            <div class="gallery-item"><span class="g-icon">📷</span><div class="cap">Дорожки в саду<small>благоустройство</small></div></div>
-        </div>
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag" id="galTag">Портфолио</div>
+      <h2 class="section-title"><span id="galTitle1">Наши </span><span id="galTitle2">работы</span></h2>
+      <p class="section-subtitle" id="galSubtitle">Больше фото — в нашем Instagram <a href="https://www.instagram.com/emislavstroy" target="_blank" rel="noopener" style="color:var(--blue-dark);font-weight:600;" id="galInstLink">@emislavstroy</a></p>
     </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
 </section>
 
-<!-- CTA -->
 <section>
-    <div class="container">
-        <div class="cta-box fade-in">
-            <div>
-                <h2>Нужна консультация?</h2>
-                <p>Позвоните нам — ответим на все вопросы, подскажем решение и посчитаем стоимость вашего проекта бесплатно.</p>
-            </div>
-            <a href="tel:+375296625266" class="btn btn-white">📞 +375 29 662-52-66</a>
-        </div>
+  <div class="container">
+    <div class="cta-box fade-in">
+      <div>
+        <h2 id="ctaTitle">Нужна консультация?</h2>
+        <p id="ctaSubtitle">Позвоните нам — ответим на все вопросы и посчитаем стоимость бесплатно.</p>
+      </div>
+      <a href="tel:+375296625266" class="btn btn-white" id="ctaPhone">📞 +375 29 662-52-66</a>
     </div>
+  </div>
 </section>
 
-<!-- КОНТАКТЫ -->
 <section id="contact" class="contact">
-    <div class="container">
-        <div class="contact-grid">
-            <div class="contact-info fade-in">
-                <h2>Свяжитесь с нами</h2>
-                <p>Оставьте заявку — перезвоним в течение 15 минут в рабочее время.</p>
-                <div class="contact-item"><div class="contact-icon">📞</div><div><h4>Телефон</h4><p><a href="tel:+375296625266">+375 (29) 662-52-66</a></p></div></div>
-                <div class="contact-item"><div class="contact-icon">📍</div><div><h4>География</h4><p>Минск и Минская область</p></div></div>
-                <div class="contact-item"><div class="contact-icon">📸</div><div><h4>Instagram</h4><p><a href="https://www.instagram.com/emislavstroy" target="_blank" rel="noopener">@emislavstroy</a></p></div></div>
-                <div class="contact-item"><div class="contact-icon">🕐</div><div><h4>Режим работы</h4><p>Ежедневно с 8:00 до 20:00</p></div></div>
-            </div>
-            <form class="contact-form fade-in" onsubmit="submitForm(event)">
-                <h3>Оставить заявку</h3>
-                <div class="form-group"><label for="name">Ваше имя</label><input id="name" type="text" autocomplete="name" placeholder="Как к вам обращаться?" required></div>
-                <div class="form-group"><label for="phone">Телефон</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+375 (__) ___-__-__" required></div>
-                <div class="form-group"><label for="msg">Что нужно сделать?</label><textarea id="msg" placeholder="Например: отмостка вокруг дома 10×12 м"></textarea></div>
-                <button type="submit" class="form-btn">Отправить заявку</button>
-            </form>
-        </div>
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info fade-in">
+        <h2 id="contactTitle">Свяжитесь с нами</h2>
+        <p id="contactSubtitle">Оставьте заявку — перезвоним в течение 15 минут.</p>
+        <div id="contactItems"></div>
+      </div>
+      <form class="contact-form fade-in" onsubmit="submitForm(event)">
+        <h3>Оставить заявку</h3>
+        <div class="form-group"><label for="name">Ваше имя</label><input id="name" type="text" autocomplete="name" placeholder="Как к вам обращаться?" required></div>
+        <div class="form-group"><label for="phone">Телефон</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+375 (__) ___-__-__" required></div>
+        <div class="form-group"><label for="msg">Что нужно сделать?</label><textarea id="msg" placeholder="Например: отмостка вокруг дома 10×12 м"></textarea></div>
+        <button type="submit" class="form-btn">Отправить заявку</button>
+      </form>
     </div>
+  </div>
 </section>
 </main>
 
-<!-- FOOTER -->
 <footer class="footer">
-    <div class="container">
-        <div class="footer-container">
-            <div>
-                <a href="#" class="logo"><span class="logo-main">EMISLAVSTROY</span><span class="logo-sub">Бетонные работы</span></a>
-                <p class="footer-desc">Благоустройство территории из бетона в Минске и Минской области. Отмостки, дорожки, парковки, площадки.</p>
-            </div>
-            <div>
-                <h4>Навигация</h4>
-                <ul>
-                    <li><a href="#services">Услуги</a></li>
-                    <li><a href="#about">О нас</a></li>
-                    <li><a href="#process">Этапы</a></li>
-                    <li><a href="#gallery">Работы</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4>Мы в соцсетях</h4>
-                <div class="socials">
-                    <a href="https://www.instagram.com/emislavstroy" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
-                    <a href="https://www.tiktok.com/@emislavstroy" target="_blank" rel="noopener" aria-label="TikTok">TT</a>
-                    <a href="tel:+375296625266" aria-label="Позвонить">📞</a>
-                </div>
-            </div>
+  <div class="container">
+    <div class="footer-container">
+      <div>
+        <a href="#" class="logo"><span class="logo-main">EMISLAVSTROY</span><span class="logo-sub">Бетонные работы</span></a>
+        <p class="footer-desc" id="footerDesc">Благоустройство территории из бетона в Минске и Минской области.</p>
+      </div>
+      <div>
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#about">О нас</a></li>
+          <li><a href="#process">Этапы</a></li>
+          <li><a href="#gallery">Работы</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Мы в соцсетях</h4>
+        <div class="socials">
+          <a href="https://www.instagram.com/emislavstroy" target="_blank" rel="noopener" aria-label="Instagram" id="footInst">IG</a>
+          <a href="https://www.tiktok.com/@emislavstroy" target="_blank" rel="noopener" aria-label="TikTok" id="footTiktok">TT</a>
+          <a href="tel:+375296625266" aria-label="Позвонить" id="footPhone">📞</a>
         </div>
-        <div class="footer-bottom">
-            <span>© 2026 EMISLAVSTROY. Все права защищены.</span>
-            <span>Минск и Минская область 🇧</span>
-        </div>
+      </div>
     </div>
+    <div class="footer-bottom">
+      <span id="footerCopy">© 2026 EMISLAVSTROY. Все права защищены.</span>
+      <span id="footerGeo">Минск и Минская область 🇧</span>
+    </div>
+  </div>
 </footer>
 
-<!-- МОБИЛЬНАЯ CTA-ПАНЕЛЬ -->
 <div class="mobile-cta">
-    <a href="tel:+375296625266" class="call">📞 Позвонить</a>
-    <a href="#contact" class="req">Оставить заявку</a>
+  <a href="tel:+375296625266" class="call" id="mobCtaCall">📞 Позвонить</a>
+  <a href="#contact" class="req">Оставить заявку</a>
 </div>
 
 <script src="script.js"></script>
+<script>
+/* ===== DYNAMIC CONTENT ENGINE ===== */
+(function(){
+  const LS = k => localStorage.getItem(k);
+  const LSJ = k => { try { return JSON.parse(LS(k) || 'null'); } catch(e){ return null; } };
+
+  function applySettings() {
+    const st = LSJ('emis_settings') || {};
+    const setPhone = (id, phone) => {
+      const el = document.getElementById(id);
+      if (!el || !phone) return;
+      const clean = phone.replace(/\D/g, '');
+      el.textContent = (id.includes('cta') || id.includes('mobCta')) ? '📞 ' + phone : phone;
+      if (el.tagName === 'A') el.href = 'tel:' + clean;
+    };
+    if (st.phone) {
+      setPhone('navPhone', st.phone); setPhone('mobPhone', st.phone);
+      setPhone('ctaPhone', st.phone); setPhone('mobCtaCall', st.phone);
+      const fp = document.getElementById('footPhone'); if (fp) { fp.href = 'tel:' + st.phone.replace(/\D/g, ''); }
+    }
+    if (st.instagram) {
+      ['mobInst', 'footInst', 'galInstLink'].forEach(id => { const el = document.getElementById(id); if (el) el.href = st.instagram; });
+    }
+    if (st.tiktok) {
+      ['mobTiktok', 'footTiktok'].forEach(id => { const el = document.getElementById(id); if (el) el.href = st.tiktok; });
+    }
+    if (st.siteTitle) document.title = st.siteTitle;
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta && st.metaDescription) meta.content = st.metaDescription;
+  }
+
+  function applyContent() {
+    const c = LSJ('emis_content') || {};
+    const setText = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) el.textContent = val; };
+    const setHTML = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) el.innerHTML = val; };
+
+    if (c.hero) {
+      setText('heroBadge', c.hero.badge);
+      setText('heroTitle1', c.hero.title ? c.hero.title + ' ' : '');
+      if (c.hero.titleAccent) {
+        const el = document.getElementById('heroTitle2');
+        if (el) { el.childNodes[0].textContent = c.hero.titleAccent + ' '; }
+      }
+      setText('heroSubtitle', c.hero.subtitle);
+      setText('heroBtn1', c.hero.btnPrimary);
+      setText('heroBtn2', c.hero.btnGhost);
+    }
+    if (c.services) {
+      setText('svcTag', c.services.tag);
+      setText('svcTitle1', c.services.title ? c.services.title + ' ' : '');
+      setText('svcTitle2', c.services.titleAccent);
+      setText('svcSubtitle', c.services.subtitle);
+    }
+    if (c.about) {
+      setText('aboutTitle1', c.about.title ? c.about.title + ' ' : '');
+      setText('aboutTitle2', c.about.titleAccent);
+      setText('aboutP1', c.about.p1);
+      setText('aboutP2', c.about.p2);
+      setText('aboutBig', c.about.stats?.big);
+      setText('aboutLbl', c.about.stats?.label);
+      if (c.about.features) {
+        document.getElementById('aboutFeatures').innerHTML = c.about.features.map(f =>
+          `<div class="about-feature"><span class="check">✓</span><span>${f}</span></div>`).join('');
+      }
+    }
+    if (c.process) {
+      setText('procTag', c.process.tag);
+      setText('procTitle1', c.process.title ? c.process.title + ' ' : '');
+      setText('procTitle2', c.process.titleAccent);
+      setText('procSubtitle', c.process.subtitle);
+      if (c.process.steps) {
+        document.getElementById('processSteps').innerHTML = c.process.steps.map(s =>
+          `<div class="step fade-in"><div class="step-num">${s.num}</div><h3>${s.title}</h3><p>${s.desc}</p></div>`).join('');
+      }
+    }
+    if (c.gallery) {
+      setText('galTag', c.gallery.tag);
+      setText('galTitle1', c.gallery.title ? c.gallery.title + ' ' : '');
+      setText('galTitle2', c.gallery.titleAccent);
+      setHTML('galSubtitle', c.gallery.subtitle);
+    }
+    if (c.cta) {
+      setText('ctaTitle', c.cta.title);
+      setText('ctaSubtitle', c.cta.subtitle);
+    }
+    if (c.contact) {
+      setText('contactTitle', c.contact.title);
+      setText('contactSubtitle', c.contact.subtitle);
+      if (c.contact.items) {
+        document.getElementById('contactItems').innerHTML = c.contact.items.map(it => {
+          let val = it.type === 'phone' ? `<a href="tel:${it.value.replace(/\D/g, '')}">${it.value}</a>` :
+                      it.type === 'link' ? `<a href="${it.url || '#' }" target="_blank" rel="noopener">${it.value}</a>` : it.value;
+          return `<div class="contact-item"><div class="contact-icon">${it.icon}</div><div><h4>${it.title}</h4><p>${val}</p></div></div>`;
+        }).join('');
+      }
+    }
+    if (c.footer) {
+      setText('footerDesc', c.footer.desc);
+      setText('footerCopy', c.footer.copy);
+      setText('footerGeo', c.footer.geo);
+    }
+  }
+
+  function applyServices() {
+    const svcs = LSJ('emis_services');
+    if (!svcs || !svcs.length) return;
+    document.getElementById('servicesGrid').innerHTML = svcs.map((s, i) => {
+      const img = s.image ? `<img src="${s.image}" alt="${s.title}" class="svc-img" loading="lazy">` : '';
+      const icon = !s.image ? `<div class="service-icon">${s.icon || '🔧'}</div>` : '';
+      return `<div class="service-card fade-in"><span class="num">0${i + 1}</span>${img}${icon}<h3>${s.title}</h3><p>${s.desc}</p></div>`;
+    }).join('');
+  }
+
+  function applyGallery() {
+    const gals = LSJ('emis_gallery');
+    if (!gals || !gals.length) return;
+    document.getElementById('galleryGrid').innerHTML = gals.map(g => {
+      const bg = g.image ? `background-image:url('${g.image}');background-size:cover;background-position:center;` : '';
+      return `<div class="gallery-item" style="${bg}"><span class="g-icon">📷</span><div class="cap">${g.title}<small>${g.subtitle}</small></div></div>`;
+    }).join('');
+  }
+
+  function renderAll() {
+    applySettings();
+    applyContent();
+    applyServices();
+    applyGallery();
+  }
+
+  // Показать кнопку админки если авторизован
+  if (localStorage.getItem('emis_admin_token') === 'ok') {
+    document.getElementById('adminLink').style.display = 'flex';
+  }
+
+  // Первый рендер
+  renderAll();
+
+  // Live-sync: обновляем при изменениях в другой вкладке
+  window.addEventListener('storage', e => {
+    if (e.key && e.key.startsWith('emis_')) {
+      renderAll();
+    }
+  });
+
+  // Live-sync: BroadcastChannel (быстрее, в рамках одного origin)
+  if (typeof BroadcastChannel !== 'undefined') {
+    const bc = new BroadcastChannel('emis_sync');
+    bc.onmessage = () => renderAll();
+  }
+})();
+</script>
 </body>
 </html>

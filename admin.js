@@ -8,11 +8,26 @@ const LS_CONTENT = 'emis_content';
 let requests = [];
 let settings = {};
 let content = {};
+let bc = null;
 
 function init() {
+  if (typeof BroadcastChannel !== 'undefined') {
+    bc = new BroadcastChannel('emis_sync');
+  }
   const token = localStorage.getItem('emis_admin_token');
   if (token === 'ok') { showDashboard(); loadData(); }
   else { showLogin(); }
+}
+
+/* ---------- SYNC ---------- */
+function syncSite() {
+  if (bc) bc.postMessage('reload');
+  localStorage.setItem('emis_sync_ts', Date.now().toString());
+  refreshPreview();
+}
+function refreshPreview() {
+  const iframe = document.getElementById('sitePreview');
+  if (iframe) iframe.src = iframe.src;
 }
 
 /* ---------- AUTH ---------- */
@@ -45,6 +60,8 @@ function switchPage(page) {
   const titles = { dashboard:'Дашборд', content:'Тексты сайта', requests:'Заявки', services:'Услуги', gallery:'Галерея', settings:'Настройки' };
   document.getElementById('pageTitle').textContent = titles[page] || 'Админ-панель';
   closeSidebar();
+  const previewWrap = document.getElementById('livePreviewWrap');
+  if (previewWrap) previewWrap.style.display = (page === 'dashboard') ? 'none' : 'block';
   if (page === 'dashboard') renderDashboard();
   if (page === 'content') renderContentEditor();
   if (page === 'requests') renderRequests();
@@ -85,7 +102,6 @@ function renderDashboard() {
   document.getElementById('dashDone').textContent = done;
   document.getElementById('dashConversion').textContent = total ? Math.round((done/total)*100) + '%' : '0%';
   document.getElementById('headerBadge').textContent = '● ' + newReq + ' новых';
-
   const tbody = document.getElementById('dashRecent');
   if (!requests.length) { tbody.innerHTML = '<tr><td colspan="4" class="empty">Нет заявок</td></tr>'; }
   else { tbody.innerHTML = requests.slice(-5).reverse().map(r => `<tr><td class="td-name">${esc(r.name)}</td><td class="td-phone">${esc(r.phone)}</td><td>${statusBadge(r.status)}</td><td class="td-date">${fmtDate(r.date)}</td></tr>`).join(''); }
@@ -142,6 +158,7 @@ function saveContent(e) {
   try { content.contact = { title:get('c_cont_title'), subtitle:get('c_cont_subtitle'), items:JSON.parse(get('c_cont_items')) }; } catch(err){ toast('Ошибка JSON в контактах','error'); return; }
   content.footer = { desc:get('c_foot_desc'), copy:get('c_foot_copy'), geo:get('c_foot_geo') };
   localStorage.setItem(LS_CONTENT, JSON.stringify(content));
+  syncSite();
   toast('Тексты сайта сохранены!', 'success');
 }
 
@@ -220,7 +237,7 @@ function deleteService(i) {
   if (!confirm('Удалить услугу?')) return;
   const list = JSON.parse(localStorage.getItem(LS_SVC) || JSON.stringify(defaultServices));
   list.splice(i,1); localStorage.setItem(LS_SVC, JSON.stringify(list));
-  renderServices(); toast('Услуга удалена', 'success');
+  syncSite(); renderServices(); toast('Услуга удалена', 'success');
 }
 function saveService(e) {
   e.preventDefault();
@@ -230,12 +247,12 @@ function saveService(e) {
   const obj = { title: document.getElementById('svcTitle').value, desc: document.getElementById('svcDesc').value, image: img };
   if (i === '') list.push(obj); else list[+i] = obj;
   localStorage.setItem(LS_SVC, JSON.stringify(list));
-  closeModal('modalService'); renderServices(); toast('Услуга сохранена', 'success');
+  syncSite(); closeModal('modalService'); renderServices(); toast('Услуга сохранена', 'success');
 }
 function resetServices() {
   if (!confirm('Сбросить услуги к стандартным?')) return;
   localStorage.setItem(LS_SVC, JSON.stringify(defaultServices));
-  renderServices(); toast('Услуги сброшены', 'success');
+  syncSite(); renderServices(); toast('Услуги сброшены', 'success');
 }
 
 /* ---------- GALLERY ---------- */
@@ -270,7 +287,7 @@ function deleteGallery(i) {
   if (!confirm('Удалить элемент галереи?')) return;
   const list = JSON.parse(localStorage.getItem(LS_GAL) || JSON.stringify(defaultGallery));
   list.splice(i,1); localStorage.setItem(LS_GAL, JSON.stringify(list));
-  renderGallery(); toast('Элемент удалён', 'success');
+  syncSite(); renderGallery(); toast('Элемент удалён', 'success');
 }
 function saveGallery(e) {
   e.preventDefault();
@@ -280,7 +297,7 @@ function saveGallery(e) {
   const obj = { title: document.getElementById('galTitle').value, subtitle: document.getElementById('galSubtitle').value, image: img };
   if (i === '') list.push(obj); else list[+i] = obj;
   localStorage.setItem(LS_GAL, JSON.stringify(list));
-  closeModal('modalGallery'); renderGallery(); toast('Галерея обновлена', 'success');
+  syncSite(); closeModal('modalGallery'); renderGallery(); toast('Галерея обновлена', 'success');
 }
 
 /* ---------- SETTINGS ---------- */
@@ -306,6 +323,7 @@ function saveSettings(e) {
   settings.siteTitle = document.getElementById('setTitle').value;
   settings.metaDescription = document.getElementById('setMeta').value;
   localStorage.setItem(LS_SET, JSON.stringify(settings));
+  syncSite();
   toast('Настройки сохранены', 'success');
 }
 

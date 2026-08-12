@@ -52,7 +52,8 @@
           <div class="role">Полный доступ</div>
         </div>
       </div>
-      <button class="btn btn-ghost" style="width:100%;margin-top:.7rem;" onclick="logout()">Выйти</button>
+      <a href="index.html" target="_blank" class="btn btn-primary" style="width:100%;margin-top:.7rem;text-decoration:none;">🌐 Открыть сайт</a>
+      <button class="btn btn-ghost" style="width:100%;margin-top:.5rem;" onclick="logout()">Выйти</button>
     </div>
   </aside>
 
@@ -66,10 +67,24 @@
       </div>
       <div class="header-actions">
         <span class="badge badge-new" id="headerBadge">● 0 новых</span>
+        <a href="index.html" target="_blank" class="btn btn-sm btn-primary" style="text-decoration:none;">🌐 Сайт</a>
       </div>
     </header>
 
     <div class="content">
+
+      <!-- LIVE PREVIEW (на всех страницах кроме дашборда) -->
+      <div id="livePreviewWrap" style="display:none;margin-bottom:1rem;">
+        <div class="card" style="padding:0;overflow:hidden;">
+          <div class="card-header" style="padding:.6rem 1rem;">
+            <h3 style="font-size:.9rem;">👁 Live-просмотр сайта</h3>
+            <button class="btn btn-sm btn-ghost" onclick="refreshPreview()">🔄 Обновить</button>
+          </div>
+          <div style="position:relative;width:100%;height:0;padding-bottom:56.25%;background:#0b1120;">
+            <iframe id="sitePreview" src="index.html" style="position:absolute;inset:0;width:100%;height:100%;border:none;" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
 
       <!-- DASHBOARD -->
       <div class="page active" id="page-dashboard">
