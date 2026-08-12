@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function(){
   setText('procTitle2', proc.titleAccent);
   setText('procSubtitle', proc.subtitle);
   let steps = (proc.steps && proc.steps.length) ? proc.steps : defaultContent.process.steps;
-  if (!steps.length) steps = defaultContent.process.steps;
+  if (!steps || !steps.length) steps = defaultContent.process.steps;
   document.getElementById('processSteps').innerHTML = steps.map(s =>
     `<div class="step fade-in"><div class="step-num">${s.num}</div><h3>${s.title}</h3><p>${s.desc}</p></div>`).join('');
 
@@ -363,6 +363,28 @@ document.addEventListener('DOMContentLoaded', function(){
     const bc = new BroadcastChannel('emis_sync');
     bc.onmessage = () => location.reload();
   }
+
+  // === ГАРАНТИРОВАННЫЙ FALLBACK: если этапы не отрендерились — вставляем дефолтные ===
+  (function(){
+    var container = document.getElementById('processSteps');
+    if (!container) return;
+    // Если контейнер пустой — принудительно вставляем 4 этапа
+    if (!container.innerHTML.trim()) {
+      var fallbackSteps = [
+        {num:'1',title:'Заявка',desc:'Звоните или пишете нам — консультируем бесплатно'},
+        {num:'2',title:'Выезд и замер',desc:'Приезжаем на объект, оцениваем объём работ'},
+        {num:'3',title:'Смета и сроки',desc:'Называем точную стоимость и дату готовности'},
+        {num:'4',title:'Сдача объекта',desc:'Выполняем работы и убираем за собой территорию'}
+      ];
+      container.innerHTML = fallbackSteps.map(function(s){
+        return '<div class="step fade-in"><div class="step-num">'+s.num+'</div><h3>'+s.title+'</h3><p>'+s.desc+'</p></div>';
+      }).join('');
+      // Запускаем анимацию
+      container.querySelectorAll('.fade-in').forEach(function(el){
+        setTimeout(function(){ el.classList.add('visible'); }, 50);
+      });
+    }
+  })();
 });
 </script>
 </body>

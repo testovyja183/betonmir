@@ -75,10 +75,10 @@ function loadData() {
   requests = JSON.parse(localStorage.getItem(LS_REQ) || '[]');
   settings = JSON.parse(localStorage.getItem(LS_SET) || JSON.stringify(defaultSettings()));
   content = JSON.parse(localStorage.getItem(LS_CONTENT) || JSON.stringify(defaultContent()));
-  // Защита: если этапы отсутствуют или пустые — восстанавливаем дефолтные
-  if (!content.process || !content.process.steps || !content.process.steps.length) {
-    if (!content.process) content.process = {};
-    content.process.steps = defaultContent().process.steps;
+  // ГАРАНТИЯ: этапы всегда есть
+  if (!content.process) content.process = {};
+  if (!content.process.steps || !content.process.steps.length) {
+    content.process.steps = JSON.parse(JSON.stringify(defaultContent().process.steps));
   }
 }
 function defaultSettings() {
@@ -157,7 +157,7 @@ function renderContentEditor() {
 /* ---------- DYNAMIC STEPS EDITOR ---------- */
 function renderStepsEditor() {
   const wrap = document.getElementById('stepsEditor');
-  const steps = (content.process && content.process.steps && content.process.steps.length) ? content.process.steps : defaultContent().process.steps;
+  const steps = (content.process && content.process.steps && content.process.steps.length) ? content.process.steps : JSON.parse(JSON.stringify(defaultContent().process.steps));
   wrap.innerHTML = steps.map((s,i) => `
     <div class="dyn-row" data-type="step" data-idx="${i}">
       <div class="dyn-fields">
@@ -228,9 +228,9 @@ function saveContent(e) {
       desc: row.querySelector('.step-desc').value
     });
   });
-  // Защита: не сохраняем пустой список этапов
+  // ГАРАНТИЯ: не сохраняем пустые этапы
   if (!steps.length) {
-    steps.push(...defaultContent().process.steps);
+    steps.push(...JSON.parse(JSON.stringify(defaultContent().process.steps)));
   }
   content.process = { tag:get('c_proc_tag'), title:get('c_proc_title'), titleAccent:get('c_proc_accent'), subtitle:get('c_proc_subtitle'), steps };
 
