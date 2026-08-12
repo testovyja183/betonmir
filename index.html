@@ -214,9 +214,7 @@
   <a href="tel:+375296625266" class="call" id="mobCtaCall">📞 Позвонить</a>
   <a href="#contactForm" class="req">Оставить заявку</a>
 </div>
-<div class="mobile-phone-bar" id="mobilePhoneBar">
-  <span>📞 <a href="tel:+375296625266" id="mobCtaNum">+375 29 662-52-66</a></span>
-</div>
+
 
 <script src="script.js"></script>
 <script>
@@ -284,16 +282,18 @@
           `<div class="about-feature"><span class="check">✓</span><span>${f}</span></div>`).join('');
       }
     }
+    // Этапы: берём из контента или из дефолта
+    const processSteps = (c.process && c.process.steps && c.process.steps.length)
+      ? c.process.steps
+      : defaultContent.process.steps;
     if (c.process) {
-      setText('procTag', c.process.tag);
-      setText('procTitle1', c.process.title ? c.process.title + ' ' : '');
-      setText('procTitle2', c.process.titleAccent);
-      setText('procSubtitle', c.process.subtitle);
-      if (c.process.steps) {
-        document.getElementById('processSteps').innerHTML = c.process.steps.map(s =>
-          `<div class="step fade-in"><div class="step-num">${s.num}</div><h3>${s.title}</h3><p>${s.desc}</p></div>`).join('');
-      }
+      setText('procTag', c.process.tag || defaultContent.process.tag);
+      setText('procTitle1', (c.process.title || defaultContent.process.title) + ' ');
+      setText('procTitle2', c.process.titleAccent || defaultContent.process.titleAccent);
+      setText('procSubtitle', c.process.subtitle || defaultContent.process.subtitle);
     }
+    document.getElementById('processSteps').innerHTML = processSteps.map(s =>
+      `<div class="step fade-in"><div class="step-num">${s.num}</div><h3>${s.title}</h3><p>${s.desc}</p></div>`).join('');
     if (c.gallery) {
       setText('galTag', c.gallery.tag);
       setText('galTitle1', c.gallery.title ? c.gallery.title + ' ' : '');

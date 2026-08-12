@@ -34,13 +34,11 @@ function submitForm(e) {
     e.target.reset();
 }
 
-/* Обновление номера в мобильной плашке */
+/* Обновление номера в мобильной CTA */
 (function(){
   const st = JSON.parse(localStorage.getItem('emis_settings') || '{}');
   if (st.phone) {
-    const el = document.getElementById('mobCtaNum');
-    if (el) { el.textContent = st.phone; el.href = 'tel:' + st.phone.replace(/\D/g, ''); }
-    const el2 = document.getElementById('mobCtaCall');
-    if (el2) { el2.textContent = '📞 ' + st.phone; el2.href = 'tel:' + st.phone.replace(/\D/g, ''); }
+    const el = document.getElementById('mobCtaCall');
+    if (el) { el.textContent = '📞 ' + st.phone; el.href = 'tel:' + st.phone.replace(/\D/g, ''); }
   }
 })();

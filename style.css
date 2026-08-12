@@ -354,13 +354,13 @@ body.menu-open { overflow: hidden; }
 /* ============ МОБИЛЬНАЯ CTA-ПАНЕЛЬ (thumb-zone) ============ */
 .mobile-cta {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 998;
-    display: flex; gap: .7rem;
-    padding: .7rem 1rem calc(.7rem + var(--safe-b));
+    display: flex; gap: .5rem;
+    padding: .6rem .7rem calc(.6rem + var(--safe-b));
     background: rgba(255,255,255,.95); backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     box-shadow: 0 -6px 30px rgba(51,52,54,.1);
 }
-.mobile-cta a { flex: 1; min-height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat'; font-weight: 800; font-size: .92rem; text-decoration: none; }
+.mobile-cta a { flex: 1; min-height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat'; font-weight: 800; font-size: .85rem; text-decoration: none; white-space: nowrap; padding: 0 .6rem; }
 .mobile-cta .call { background: linear-gradient(135deg, var(--blue), var(--blue-dark)); color: #fff; box-shadow: 0 6px 20px rgba(41,171,226,.35); }
 .mobile-cta .req { background: var(--blue-light); color: var(--blue-dark); }
 
@@ -511,33 +511,3 @@ body.menu-open { overflow: hidden; }
   scroll-margin-top: calc(var(--nav-h) + 20px);
 }
 
-/* Плашка с номером над мобильной CTA */
-.mobile-phone-bar {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: calc(64px + env(safe-area-inset-bottom, 0px));
-  z-index: 997;
-  background: rgba(15, 23, 42, .92);
-  backdrop-filter: blur(10px);
-  color: #fff;
-  text-align: center;
-  padding: .5rem 1rem;
-  font-size: .85rem;
-  font-weight: 600;
-  display: none;
-}
-.mobile-phone-bar a {
-  color: #7ED3F5;
-  text-decoration: none;
-  font-weight: 700;
-}
-@media (max-width: 1023px) {
-  .mobile-phone-bar {
-    display: block;
-  }
-  /* Увеличиваем отступ снизу для контента, чтобы не перекрывалось */
-  body {
-    padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px));
-  }
-}
