@@ -75,6 +75,12 @@ function loadData() {
   requests = JSON.parse(localStorage.getItem(LS_REQ) || '[]');
   settings = JSON.parse(localStorage.getItem(LS_SET) || JSON.stringify(defaultSettings()));
   content = JSON.parse(localStorage.getItem(LS_CONTENT) || JSON.stringify(defaultContent()));
+  // Если этапы отсутствуют или пустые — восстанавливаем дефолтные
+  if (!content.process) {
+    content.process = defaultContent().process;
+  } else if (!content.process.steps || content.process.steps.length === 0) {
+    content.process.steps = defaultContent().process.steps;
+  }
 }
 function defaultSettings() {
   return { phone:'+375 29 662-52-66', email:'', address:'Минск и Минская область', workHours:'Ежедневно с 8:00 до 20:00', instagram:'https://www.instagram.com/emislavstroy', tiktok:'https://www.tiktok.com/@emislavstroy', siteTitle:'Бетонный Мир — Бетонные работы | Минск и область', metaDescription:'Бетонный Мир — бетонные работы в Минске и Минской области. Отмостки, дорожки, парковки, площадки из бетона.' };
@@ -152,7 +158,7 @@ function renderContentEditor() {
 /* ---------- DYNAMIC STEPS EDITOR ---------- */
 function renderStepsEditor() {
   const wrap = document.getElementById('stepsEditor');
-  const steps = content.process?.steps || [];
+  const steps = (content.process?.steps?.length) ? content.process.steps : defaultContent().process.steps;
   wrap.innerHTML = steps.map((s,i) => `
     <div class="dyn-row" data-type="step" data-idx="${i}">
       <div class="dyn-fields">
