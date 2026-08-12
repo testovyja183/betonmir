@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="EMISLAVSTROY — бетонные работы в Минске и Минской области.">
 <meta name="theme-color" content="#ffffff">
-<title>EMISLAVSTROY — Бетонные работы | Минск и область</title>
+<title>Бетонный Мир — Бетонные работы | Минск и область</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='32' r='24' fill='%237ED3F5'/%3E%3Cpath d='M18 52 L36 37 L54 52 V76 H18 Z' fill='white' stroke='%2329ABE2' stroke-width='6'/%3E%3Cpath d='M48 48 L68 32 L88 48 V76 H48 Z' fill='white' stroke='%2329ABE2' stroke-width='6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +20,7 @@
 <nav class="navbar" aria-label="Главная навигация">
   <div class="nav-container">
     <a href="#" class="logo" aria-label="EMISLAVSTROY — на главную">
-      <span class="logo-main">EMISLAVSTROY</span>
+      <span class="logo-main">Бетонный Мир</span>
       <span class="logo-sub">Бетонные работы</span>
     </a>
     <ul class="nav-links">
@@ -81,7 +81,7 @@
             <rect x="192" y="98" width="16" height="16" rx="2"/>
           </g>
           <path d="M40 150 C 110 128, 200 128, 262 146 C 200 140, 110 142, 40 158 Z" fill="#4A4B4D"/>
-          <text x="150" y="178" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="800" font-size="20" fill="#29ABE2" letter-spacing="1">EMISLAVSTROY</text>
+          <text x="150" y="178" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="800" font-size="20" fill="#29ABE2" letter-spacing="1">Бетонный Мир</text>
           <text x="150" y="194" text-anchor="middle" font-family="Inter, sans-serif" font-weight="600" font-size="9" fill="#8A8D90" letter-spacing="3">БЕТОННЫЕ РАБОТЫ</text>
         </svg>
       </div>
@@ -115,7 +115,7 @@
         <div class="about-mini mini-2">⚡ Точно в срок<small>фиксируем сроки в договоре</small></div>
       </div>
       <div class="about-text fade-in">
-        <h2><span id="aboutTitle1">Почему выбирают </span><span id="aboutTitle2">EMISLAVSTROY</span></h2>
+        <h2><span id="aboutTitle1">Почему выбирают </span><span id="aboutTitle2">Бетонный Мир</span></h2>
         <p id="aboutP1">Мы специализируемся исключительно на бетонных работах.</p>
         <p id="aboutP2">Работаем по проверенным технологиям.</p>
         <div class="about-features" id="aboutFeatures"></div>
@@ -166,7 +166,7 @@
         <p id="contactSubtitle">Оставьте заявку — перезвоним в течение 15 минут.</p>
         <div id="contactItems"></div>
       </div>
-      <form class="contact-form fade-in" onsubmit="submitForm(event)">
+      <form class="contact-form fade-in" id="contactForm" onsubmit="submitForm(event)">
         <h3>Оставить заявку</h3>
         <div class="form-group"><label for="name">Ваше имя</label><input id="name" type="text" autocomplete="name" placeholder="Как к вам обращаться?" required></div>
         <div class="form-group"><label for="phone">Телефон</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+375 (__) ___-__-__" required></div>
@@ -182,7 +182,7 @@
   <div class="container">
     <div class="footer-container">
       <div>
-        <a href="#" class="logo"><span class="logo-main">EMISLAVSTROY</span><span class="logo-sub">Бетонные работы</span></a>
+        <a href="#" class="logo"><span class="logo-main">Бетонный Мир</span><span class="logo-sub">Бетонные работы</span></a>
         <p class="footer-desc" id="footerDesc">Благоустройство территории из бетона в Минске и Минской области.</p>
       </div>
       <div>
@@ -212,7 +212,10 @@
 
 <div class="mobile-cta">
   <a href="tel:+375296625266" class="call" id="mobCtaCall">📞 Позвонить</a>
-  <a href="#contact" class="req">Оставить заявку</a>
+  <a href="#contactForm" class="req">Оставить заявку</a>
+</div>
+<div class="mobile-phone-bar" id="mobilePhoneBar">
+  <span>📞 <a href="tel:+375296625266" id="mobCtaNum">+375 29 662-52-66</a></span>
 </div>
 
 <script src="script.js"></script>
@@ -248,7 +251,7 @@
   }
 
   function applyContent() {
-    const c = LSJ('emis_content') || {};
+    const c = LSJ('emis_content') || defaultContent;
     const setText = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) el.textContent = val; };
     const setHTML = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) el.innerHTML = val; };
 

@@ -77,18 +77,18 @@ function loadData() {
   content = JSON.parse(localStorage.getItem(LS_CONTENT) || JSON.stringify(defaultContent()));
 }
 function defaultSettings() {
-  return { phone:'+375 29 662-52-66', email:'', address:'Минск и Минская область', workHours:'Ежедневно с 8:00 до 20:00', instagram:'https://www.instagram.com/emislavstroy', tiktok:'https://www.tiktok.com/@emislavstroy', siteTitle:'EMISLAVSTROY — Бетонные работы | Минск и область', metaDescription:'EMISLAVSTROY — бетонные работы в Минске и Минской области. Отмостки, дорожки, парковки, площадки из бетона.' };
+  return { phone:'+375 29 662-52-66', email:'', address:'Минск и Минская область', workHours:'Ежедневно с 8:00 до 20:00', instagram:'https://www.instagram.com/emislavstroy', tiktok:'https://www.tiktok.com/@emislavstroy', siteTitle:'Бетонный Мир — Бетонные работы | Минск и область', metaDescription:'Бетонный Мир — бетонные работы в Минске и Минской области. Отмостки, дорожки, парковки, площадки из бетона.' };
 }
 function defaultContent() {
   return {
     hero:{ badge:'Минск и Минская область', title:'Благоустройство из бетона', titleAccent:'под ключ', subtitle:'Отмостки, дорожки, парковки и площадки из бетона. Надёжно, эстетично и с гарантией — как на фото в нашем Instagram.', btnPrimary:'Рассчитать стоимость', btnGhost:'Смотреть работы' },
     services:{ tag:'Наши услуги', title:'Что мы', titleAccent:'делаем', subtitle:'Полный комплекс бетонных работ для вашего участка — от дорожки до парковки' },
-    about:{ title:'Почему выбирают', titleAccent:'EMISLAVSTROY', p1:'Мы специализируемся исключительно на бетонных работах — и делаем это профессионально. Каждый объект: от небольшой дорожки до большой парковки — выполняем аккуратно и на совесть.', p2:'Работаем по проверенным технологиям, используем качественный бетон и армирование, чтобы результат служил десятилетиями.', stats:{ big:'100+', label:'выполненных объектов в Минске и области' }, features:['Гарантия на работы','Своя техника и инструмент','Бесплатный выезд на замер','Честная смета без сюрпризов'] },
+    about:{ title:'Почему выбирают', titleAccent:'Бетонный Мир', p1:'Мы специализируемся исключительно на бетонных работах — и делаем это профессионально. Каждый объект: от небольшой дорожки до большой парковки — выполняем аккуратно и на совесть.', p2:'Работаем по проверенным технологиям, используем качественный бетон и армирование, чтобы результат служил десятилетиями.', stats:{ big:'100+', label:'выполненных объектов в Минске и области' }, features:['Гарантия на работы','Своя техника и инструмент','Бесплатный выезд на замер','Честная смета без сюрпризов'] },
     process:{ tag:'Этапы работы', title:'Как мы', titleAccent:'работаем', subtitle:'Прозрачный процесс от звонка до готового результата', steps:[ {num:'1',title:'Заявка',desc:'Звоните или пишете нам — консультируем бесплатно'}, {num:'2',title:'Выезд и замер',desc:'Приезжаем на объект, оцениваем объём работ'}, {num:'3',title:'Смета и сроки',desc:'Называем точную стоимость и дату готовности'}, {num:'4',title:'Сдача объекта',desc:'Выполняем работы и убираем за собой территорию'} ] },
     gallery:{ tag:'Портфолио', title:'Наши', titleAccent:'работы', subtitle:'Больше фото и видео — в нашем Instagram <a href="https://www.instagram.com/emislavstroy" target="_blank" rel="noopener" style="color:var(--blue-dark);font-weight:600;">@emislavstroy</a>' },
     cta:{ title:'Нужна консультация?', subtitle:'Позвоните нам — ответим на все вопросы, подскажем решение и посчитаем стоимость вашего проекта бесплатно.' },
     contact:{ title:'Свяжитесь с нами', subtitle:'Оставьте заявку — перезвоним в течение 15 минут в рабочее время.', items:[ {icon:'📞',title:'Телефон',value:'+375 (29) 662-52-66',type:'phone'}, {icon:'📍',title:'География',value:'Минск и Минская область',type:'text'}, {icon:'📸',title:'Instagram',value:'@emislavstroy',type:'link',url:'https://www.instagram.com/emislavstroy'}, {icon:'🕐',title:'Режим работы',value:'Ежедневно с 8:00 до 20:00',type:'text'} ] },
-    footer:{ desc:'Благоустройство территории из бетона в Минске и Минской области. Отмостки, дорожки, парковки, площадки.', copy:'© 2026 EMISLAVSTROY. Все права защищены.', geo:'Минск и Минская область 🇧' }
+    footer:{ desc:'Благоустройство территории из бетона в Минске и Минской области. Отмостки, дорожки, парковки, площадки.', copy:'© 2026 Бетонный Мир. Все права защищены.', geo:'Минск и Минская область 🇧' }
   };
 }
 
@@ -140,11 +140,71 @@ function renderContentEditor() {
   if (c.hero) { set('c_hero_badge', c.hero.badge); set('c_hero_title', c.hero.title); set('c_hero_accent', c.hero.titleAccent); set('c_hero_subtitle', c.hero.subtitle); set('c_hero_btn1', c.hero.btnPrimary); set('c_hero_btn2', c.hero.btnGhost); }
   if (c.services) { set('c_svc_tag', c.services.tag); set('c_svc_title', c.services.title); set('c_svc_accent', c.services.titleAccent); set('c_svc_subtitle', c.services.subtitle); }
   if (c.about) { set('c_about_title', c.about.title); set('c_about_accent', c.about.titleAccent); set('c_about_p1', c.about.p1); set('c_about_p2', c.about.p2); set('c_about_big', c.about.stats?.big); set('c_about_lbl', c.about.stats?.label); set('c_about_features', (c.about.features||[]).join('\n')); }
-  if (c.process) { set('c_proc_tag', c.process.tag); set('c_proc_title', c.process.title); set('c_proc_accent', c.process.titleAccent); set('c_proc_subtitle', c.process.subtitle); set('c_proc_steps', JSON.stringify(c.process.steps, null, 2)); }
+  if (c.process) { set('c_proc_tag', c.process.tag); set('c_proc_title', c.process.title); set('c_proc_accent', c.process.titleAccent); set('c_proc_subtitle', c.process.subtitle); }
   if (c.gallery) { set('c_gal_tag', c.gallery.tag); set('c_gal_title', c.gallery.title); set('c_gal_accent', c.gallery.titleAccent); set('c_gal_subtitle', c.gallery.subtitle); }
   if (c.cta) { set('c_cta_title', c.cta.title); set('c_cta_subtitle', c.cta.subtitle); }
-  if (c.contact) { set('c_cont_title', c.contact.title); set('c_cont_subtitle', c.contact.subtitle); set('c_cont_items', JSON.stringify(c.contact.items, null, 2)); }
+  if (c.contact) { set('c_cont_title', c.contact.title); set('c_cont_subtitle', c.contact.subtitle); }
   if (c.footer) { set('c_foot_desc', c.footer.desc); set('c_foot_copy', c.footer.copy); set('c_foot_geo', c.footer.geo); }
+  renderStepsEditor();
+  renderContactsEditor();
+}
+
+/* ---------- DYNAMIC STEPS EDITOR ---------- */
+function renderStepsEditor() {
+  const wrap = document.getElementById('stepsEditor');
+  const steps = content.process?.steps || [];
+  wrap.innerHTML = steps.map((s,i) => `
+    <div class="dyn-row" data-type="step" data-idx="${i}">
+      <div class="dyn-fields">
+        <div class="editor-group" style="flex:0 0 60px;"><label>№</label><input type="text" class="step-num" value="${esc(s.num)}" placeholder="1"></div>
+        <div class="editor-group" style="flex:1;"><label>Заголовок</label><input type="text" class="step-title" value="${esc(s.title)}" placeholder="Заявка"></div>
+        <div class="editor-group" style="flex:2;"><label>Описание</label><input type="text" class="step-desc" value="${esc(s.desc)}" placeholder="Описание этапа..."></div>
+      </div>
+      <button type="button" class="btn btn-sm btn-danger" onclick="removeStep(${i})" title="Удалить">✕</button>
+    </div>
+  `).join('');
+}
+function addStep() {
+  if (!content.process) content.process = { tag:'', title:'', titleAccent:'', subtitle:'', steps:[] };
+  content.process.steps.push({ num: String(content.process.steps.length + 1), title: '', desc: '' });
+  renderStepsEditor();
+}
+function removeStep(i) {
+  content.process.steps.splice(i, 1);
+  renderStepsEditor();
+}
+
+/* ---------- DYNAMIC CONTACTS EDITOR ---------- */
+function renderContactsEditor() {
+  const wrap = document.getElementById('contactsEditor');
+  const items = content.contact?.items || [];
+  wrap.innerHTML = items.map((it,i) => `
+    <div class="dyn-row" data-type="contact" data-idx="${i}">
+      <div class="dyn-fields">
+        <div class="editor-group" style="flex:0 0 50px;"><label>Иконка</label><input type="text" class="cont-icon" value="${esc(it.icon)}" placeholder="📞"></div>
+        <div class="editor-group" style="flex:1;"><label>Название</label><input type="text" class="cont-title" value="${esc(it.title)}" placeholder="Телефон"></div>
+        <div class="editor-group" style="flex:1.5;"><label>Значение</label><input type="text" class="cont-value" value="${esc(it.value)}" placeholder="+375..."></div>
+        <div class="editor-group" style="flex:0 0 100px;"><label>Тип</label>
+          <select class="cont-type">
+            <option value="text" ${it.type==='text'?'selected':''}>Текст</option>
+            <option value="phone" ${it.type==='phone'?'selected':''}>Телефон</option>
+            <option value="link" ${it.type==='link'?'selected':''}>Ссылка</option>
+          </select>
+        </div>
+        <div class="editor-group" style="flex:1.5;"><label>URL (для ссылки)</label><input type="text" class="cont-url" value="${esc(it.url||'')}" placeholder="https://..."></div>
+      </div>
+      <button type="button" class="btn btn-sm btn-danger" onclick="removeContact(${i})" title="Удалить">✕</button>
+    </div>
+  `).join('');
+}
+function addContact() {
+  if (!content.contact) content.contact = { title:'', subtitle:'', items:[] };
+  content.contact.items.push({ icon:'', title:'', value:'', type:'text', url:'' });
+  renderContactsEditor();
+}
+function removeContact(i) {
+  content.contact.items.splice(i, 1);
+  renderContactsEditor();
 }
 function saveContent(e) {
   e.preventDefault();
@@ -152,10 +212,36 @@ function saveContent(e) {
   content.hero = { badge:get('c_hero_badge'), title:get('c_hero_title'), titleAccent:get('c_hero_accent'), subtitle:get('c_hero_subtitle'), btnPrimary:get('c_hero_btn1'), btnGhost:get('c_hero_btn2') };
   content.services = { tag:get('c_svc_tag'), title:get('c_svc_title'), titleAccent:get('c_svc_accent'), subtitle:get('c_svc_subtitle') };
   content.about = { title:get('c_about_title'), titleAccent:get('c_about_accent'), p1:get('c_about_p1'), p2:get('c_about_p2'), stats:{ big:get('c_about_big'), label:get('c_about_lbl') }, features:get('c_about_features').split('\n').map(s=>s.trim()).filter(Boolean) };
-  try { content.process = { tag:get('c_proc_tag'), title:get('c_proc_title'), titleAccent:get('c_proc_accent'), subtitle:get('c_proc_subtitle'), steps:JSON.parse(get('c_proc_steps')) }; } catch(err){ toast('Ошибка JSON в этапах','error'); return; }
+
+  // Собираем этапы из динамических полей
+  const stepRows = document.querySelectorAll('#stepsEditor .dyn-row');
+  const steps = [];
+  stepRows.forEach(row => {
+    steps.push({
+      num: row.querySelector('.step-num').value,
+      title: row.querySelector('.step-title').value,
+      desc: row.querySelector('.step-desc').value
+    });
+  });
+  content.process = { tag:get('c_proc_tag'), title:get('c_proc_title'), titleAccent:get('c_proc_accent'), subtitle:get('c_proc_subtitle'), steps };
+
   content.gallery = { tag:get('c_gal_tag'), title:get('c_gal_title'), titleAccent:get('c_gal_accent'), subtitle:get('c_gal_subtitle') };
   content.cta = { title:get('c_cta_title'), subtitle:get('c_cta_subtitle') };
-  try { content.contact = { title:get('c_cont_title'), subtitle:get('c_cont_subtitle'), items:JSON.parse(get('c_cont_items')) }; } catch(err){ toast('Ошибка JSON в контактах','error'); return; }
+
+  // Собираем контакты из динамических полей
+  const contactRows = document.querySelectorAll('#contactsEditor .dyn-row');
+  const items = [];
+  contactRows.forEach(row => {
+    items.push({
+      icon: row.querySelector('.cont-icon').value,
+      title: row.querySelector('.cont-title').value,
+      value: row.querySelector('.cont-value').value,
+      type: row.querySelector('.cont-type').value,
+      url: row.querySelector('.cont-url').value
+    });
+  });
+  content.contact = { title:get('c_cont_title'), subtitle:get('c_cont_subtitle'), items };
+
   content.footer = { desc:get('c_foot_desc'), copy:get('c_foot_copy'), geo:get('c_foot_geo') };
   localStorage.setItem(LS_CONTENT, JSON.stringify(content));
   syncSite();

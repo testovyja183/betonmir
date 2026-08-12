@@ -506,3 +506,38 @@ body.menu-open { overflow: hidden; }
   .admin-fab { bottom: 1.5rem; right: 1.5rem; width: 52px; height: 52px; font-size: 1.3rem; }
 }
 
+/* Форма заявки — якорь */
+#contactForm {
+  scroll-margin-top: calc(var(--nav-h) + 20px);
+}
+
+/* Плашка с номером над мобильной CTA */
+.mobile-phone-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  z-index: 997;
+  background: rgba(15, 23, 42, .92);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  text-align: center;
+  padding: .5rem 1rem;
+  font-size: .85rem;
+  font-weight: 600;
+  display: none;
+}
+.mobile-phone-bar a {
+  color: #7ED3F5;
+  text-decoration: none;
+  font-weight: 700;
+}
+@media (max-width: 1023px) {
+  .mobile-phone-bar {
+    display: block;
+  }
+  /* Увеличиваем отступ снизу для контента, чтобы не перекрывалось */
+  body {
+    padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px));
+  }
+}

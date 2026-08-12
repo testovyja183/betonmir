@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Админ-панель — EMISLAVSTROY</title>
+<title>Админ-панель — Бетонный Мир</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
 <!-- LOGIN -->
 <div class="login-wrap" id="loginPage">
   <div class="login-card">
-    <span class="logo">◆ EMISLAVSTROY</span>
+    <span class="logo">◆ Бетонный Мир</span>
     <h1>Вход в панель</h1>
     <p>Введите пароль администратора.</p>
     <form onsubmit="doLogin(event)">
@@ -33,7 +33,7 @@
 
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
-      <div class="logo-main">◆ EMISLAVSTROY</div>
+      <div class="logo-main">◆ Бетонный Мир</div>
       <div class="logo-sub">Админ-панель</div>
     </div>
     <ul class="sidebar-nav">
@@ -164,8 +164,9 @@
                 <div class="editor-group"><label>Подзаголовок</label><textarea id="c_proc_subtitle"></textarea></div>
               </div>
               <div style="margin-top:.8rem;">
-                <label style="font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:.3rem;display:block;">Этапы (JSON: [{"num":"1","title":"...","desc":"..."}, ...])</label>
-                <textarea id="c_proc_steps" style="width:100%;padding:.65rem .85rem;border-radius:8px;border:2px solid var(--border);background:#0b1221;color:var(--text);font-family:monospace;font-size:.82rem;min-height:120px;resize:vertical;"></textarea>
+                <label style="font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:.3rem;display:block;">Этапы работы</label>
+                <div id="stepsEditor"></div>
+                <button type="button" class="btn btn-sm btn-ghost" onclick="addStep()" style="margin-top:.5rem;">+ Добавить этап</button>
               </div>
             </div>
           </div>
@@ -200,8 +201,9 @@
                 <div class="editor-group"><label>Подзаголовок</label><textarea id="c_cont_subtitle"></textarea></div>
               </div>
               <div style="margin-top:.8rem;">
-                <label style="font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:.3rem;display:block;">Контактные элементы (JSON)</label>
-                <textarea id="c_cont_items" style="width:100%;padding:.65rem .85rem;border-radius:8px;border:2px solid var(--border);background:#0b1221;color:var(--text);font-family:monospace;font-size:.82rem;min-height:140px;resize:vertical;"></textarea>
+                <label style="font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:.3rem;display:block;">Контактные элементы</label>
+                <div id="contactsEditor"></div>
+                <button type="button" class="btn btn-sm btn-ghost" onclick="addContact()" style="margin-top:.5rem;">+ Добавить контакт</button>
               </div>
             </div>
           </div>
