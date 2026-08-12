@@ -467,6 +467,12 @@ if (!localStorage.getItem(LS_REQ)) {
   ];
   localStorage.setItem(LS_REQ, JSON.stringify(demo));
 }
+if (!localStorage.getItem(LS_SVC)) {
+  localStorage.setItem(LS_SVC, JSON.stringify(defaultServices));
+}
+if (!localStorage.getItem(LS_GAL)) {
+  localStorage.setItem(LS_GAL, JSON.stringify(defaultGallery));
+}
 
 /* Init */
 window.addEventListener('DOMContentLoaded', init);

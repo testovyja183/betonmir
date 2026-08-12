@@ -223,6 +223,23 @@ document.addEventListener('DOMContentLoaded', function(){
   const LS = k => localStorage.getItem(k);
   const LSJ = k => { try { return JSON.parse(LS(k)||'null'); } catch(e){ return null; } };
 
+  const defaultServices = [
+    {icon:'🏡', title:'Отмостки бетонные', desc:'Надёжная защита фундамента дома с правильным уклоном и армированием.'},
+    {icon:'🛤️', title:'Дорожки из бетона', desc:'Аккуратные и долговечные садовые дорожки любой формы и фактуры.'},
+    {icon:'🚗', title:'Парковки из бетона', desc:'Прочные парковочные площадки, выдерживающие ежедневные нагрузки.'},
+    {icon:'⬜', title:'Площадки из бетона', desc:'Ровные и практичные площадки под террасы, зоны отдыха и хознужды.'},
+    {icon:'🌿', title:'Благоустройство', desc:'Комплексное благоустройство частной территории с помощью бетона.'},
+    {icon:'🎨', title:'Цветной бетон', desc:'Декоративные решения и цветные дорожки — новый стиль вашего участка.'}
+  ];
+
+  const defaultGallery = [
+    {title:'Отмостка вокруг дома', subtitle:'Минский район', image:''},
+    {title:'Цветная дорожка', subtitle:'декоративный бетон', image:''},
+    {title:'Парковка', subtitle:'частный дом', image:''},
+    {title:'Площадка под террасу', subtitle:'зона отдыха', image:''},
+    {title:'Дорожки в саду', subtitle:'благоустройство', image:''}
+  ];
+
   const defaultContent = {
     hero:{ badge:'Минск и Минская область', title:'Благоустройство из бетона', titleAccent:'под ключ', subtitle:'Отмостки, дорожки, парковки и площадки из бетона. Надёжно, эстетично и с гарантией.', btnPrimary:'Рассчитать стоимость', btnGhost:'Смотреть работы' },
     services:{ tag:'Наши услуги', title:'Что мы', titleAccent:'делаем', subtitle:'Полный комплекс бетонных работ для вашего участка' },
@@ -300,8 +317,7 @@ document.addEventListener('DOMContentLoaded', function(){
   setText('procTitle1', proc.title ? proc.title + ' ' : '');
   setText('procTitle2', proc.titleAccent);
   setText('procSubtitle', proc.subtitle);
-  let steps = (proc.steps && proc.steps.length) ? proc.steps : defaultContent.process.steps;
-  if (!steps || !steps.length) steps = defaultContent.process.steps;
+  const steps = (proc.steps && proc.steps.length) ? proc.steps : defaultContent.process.steps;
   document.getElementById('processSteps').innerHTML = steps.map(s =>
     `<div class="step fade-in"><div class="step-num">${s.num}</div><h3>${s.title}</h3><p>${s.desc}</p></div>`).join('');
 
@@ -333,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   // Services
-  const svcs = LSJ('emis_services');
+  const svcs = LSJ('emis_services') || defaultServices;
   if (svcs && svcs.length) {
     document.getElementById('servicesGrid').innerHTML = svcs.map((s, i) => {
       const img = s.image ? `<img src="${s.image}" alt="${s.title}" class="svc-img" loading="lazy">` : `<div class="service-icon">${s.icon || '🔧'}</div>`;
@@ -342,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   // Gallery
-  const gals = LSJ('emis_gallery');
+  const gals = LSJ('emis_gallery') || defaultGallery;
   if (gals && gals.length) {
     document.getElementById('galleryGrid').innerHTML = gals.map(g => {
       const bg = g.image ? `background-image:url('${g.image}');background-size:cover;background-position:center;` : '';
@@ -363,28 +379,6 @@ document.addEventListener('DOMContentLoaded', function(){
     const bc = new BroadcastChannel('emis_sync');
     bc.onmessage = () => location.reload();
   }
-
-  // === ГАРАНТИРОВАННЫЙ FALLBACK: если этапы не отрендерились — вставляем дефолтные ===
-  (function(){
-    var container = document.getElementById('processSteps');
-    if (!container) return;
-    // Если контейнер пустой — принудительно вставляем 4 этапа
-    if (!container.innerHTML.trim()) {
-      var fallbackSteps = [
-        {num:'1',title:'Заявка',desc:'Звоните или пишете нам — консультируем бесплатно'},
-        {num:'2',title:'Выезд и замер',desc:'Приезжаем на объект, оцениваем объём работ'},
-        {num:'3',title:'Смета и сроки',desc:'Называем точную стоимость и дату готовности'},
-        {num:'4',title:'Сдача объекта',desc:'Выполняем работы и убираем за собой территорию'}
-      ];
-      container.innerHTML = fallbackSteps.map(function(s){
-        return '<div class="step fade-in"><div class="step-num">'+s.num+'</div><h3>'+s.title+'</h3><p>'+s.desc+'</p></div>';
-      }).join('');
-      // Запускаем анимацию
-      container.querySelectorAll('.fade-in').forEach(function(el){
-        setTimeout(function(){ el.classList.add('visible'); }, 50);
-      });
-    }
-  })();
 });
 </script>
 </body>
