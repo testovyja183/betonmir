@@ -336,7 +336,7 @@ body.menu-open { overflow: hidden; }
 .form-btn:active { transform: scale(.98); }
 
 /* ============ FOOTER ============ */
-.footer { background: var(--graphite-dark); color: #fff; padding: 3rem 0 1.5rem; }
+.footer { background: var(--graphite-dark); color: #fff; padding: 3rem 0 calc(5rem + env(safe-area-inset-bottom, 0px)); }
 .footer-container { display: grid; grid-template-columns: 1fr; gap: 2.2rem; }
 .footer .logo-main { color: var(--blue-sky); }
 .footer .logo-sub { color: #9CA0A3; }
