@@ -347,6 +347,7 @@ body.menu-open { overflow: hidden; }
 .footer ul a { color: #B9BCBF; text-decoration: none; font-size: .9rem; display: inline-block; padding: .2rem 0; min-height: 32px; }
 .footer ul a:hover { color: var(--blue-sky); }
 .footer-bottom { margin-top: 2.2rem; padding-top: 1.3rem; border-top: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: .6rem; color: #9CA0A3; font-size: .83rem; }
+#footerUnp { color: #9CA0A3; font-size: .83rem; }
 .socials { display: flex; gap: .7rem; }
 .socials a { width: 46px; height: 46px; border-radius: 12px; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; font-weight: 700; font-size: .8rem; transition: background .3s, transform .3s; }
 .socials a:hover { background: var(--blue); transform: translateY(-3px); }

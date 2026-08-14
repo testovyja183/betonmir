@@ -94,7 +94,7 @@ function defaultContent() {
     gallery:{ tag:'Портфолио', title:'Наши', titleAccent:'работы', subtitle:'Больше фото и видео — в нашем Instagram <a href="https://www.instagram.com/emislavstroy" target="_blank" rel="noopener" style="color:var(--blue-dark);font-weight:600;">@emislavstroy</a>' },
     cta:{ title:'Нужна консультация?', subtitle:'Позвоните нам — ответим на все вопросы, подскажем решение и посчитаем стоимость вашего проекта бесплатно.' },
     contact:{ title:'Свяжитесь с нами', subtitle:'Оставьте заявку — перезвоним в течение 15 минут в рабочее время.', items:[ {icon:'📞',title:'Телефон',value:'+375 (29) 662-52-66',type:'phone'}, {icon:'📍',title:'География',value:'Минск и Минская область',type:'text'}, {icon:'📸',title:'Instagram',value:'@emislavstroy',type:'link',url:'https://www.instagram.com/emislavstroy'}, {icon:'🕐',title:'Режим работы',value:'Ежедневно с 8:00 до 20:00',type:'text'} ] },
-    footer:{ desc:'Благоустройство территории из бетона в Минске и Минской области. Отмостки, дорожки, парковки, площадки.', copy:'© 2026 Бетонный Мир. Все права защищены.', geo:'Минск и Минская область 🇧' }
+    footer:{ desc:'Благоустройство территории из бетона в Минске и Минской области. Отмостки, дорожки, парковки, площадки.', copy:'© 2026 Бетонный Мир. Все права защищены.', geo:'Минск и Минская область 🇧', unp:'УНП 693387298' }
   };
 }
 
@@ -150,7 +150,7 @@ function renderContentEditor() {
   if (c.gallery) { set('c_gal_tag', c.gallery.tag); set('c_gal_title', c.gallery.title); set('c_gal_accent', c.gallery.titleAccent); set('c_gal_subtitle', c.gallery.subtitle); }
   if (c.cta) { set('c_cta_title', c.cta.title); set('c_cta_subtitle', c.cta.subtitle); }
   if (c.contact) { set('c_cont_title', c.contact.title); set('c_cont_subtitle', c.contact.subtitle); }
-  if (c.footer) { set('c_foot_desc', c.footer.desc); set('c_foot_copy', c.footer.copy); set('c_foot_geo', c.footer.geo); }
+  if (c.footer) { set('c_foot_desc', c.footer.desc); set('c_foot_copy', c.footer.copy); set('c_foot_geo', c.footer.geo); set('c_foot_unp', c.footer.unp); }
   renderStepsEditor();
   renderContactsEditor();
 }
@@ -251,7 +251,7 @@ function saveContent(e) {
   });
   content.contact = { title:get('c_cont_title'), subtitle:get('c_cont_subtitle'), items };
 
-  content.footer = { desc:get('c_foot_desc'), copy:get('c_foot_copy'), geo:get('c_foot_geo') };
+  content.footer = { desc:get('c_foot_desc'), copy:get('c_foot_copy'), geo:get('c_foot_geo'), unp:get('c_foot_unp') };
   localStorage.setItem(LS_CONTENT, JSON.stringify(content));
   syncSite();
   toast('Тексты сайта сохранены!', 'success');
